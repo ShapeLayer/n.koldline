@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Config",
+  "type": "object",
+  "properties": {
+    "current_locale": {
+      "type": "string",
+      "description": "The ISO language code currently in use.",
+      "pattern": "^[a-z]{2}(-[A-Z]{2,4})?$",
+      "minLength": 2,
+      "maxLength": 10
+    }
+  },
+  "required": ["current_locale"]
+}

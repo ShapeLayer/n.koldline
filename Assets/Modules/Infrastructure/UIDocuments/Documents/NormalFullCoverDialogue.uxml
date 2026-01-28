@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML
+  xmlns:ui="UnityEngine.UIElements"
+  xmlns:infra="Infrastructure.VisualElements"
+  editor-extension-mode="False"
+>
+  <ui:Style src="NormalFullCoverDialogue.uss" />
+  <ui:VisualElement name="screen-root" class="dialogue-screen-root">
+    <infra:NormalFullCoverDialogueElement name="dialogue-holder" class="dialogue-holder" />
+  </ui:VisualElement>
+</ui:UXML>

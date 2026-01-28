@@ -1,0 +1,29 @@
+.dialogue-screen-root {
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  opacity: 0;
+}
+
+.dialogue-holder {
+  width: 100%;
+  height: 100%;
+}
+
+.normal-full-cover-dialogue {
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+.dialogue-text {
+  line-height: 1.4;
+}
+
+.dialogue-click-hint {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}

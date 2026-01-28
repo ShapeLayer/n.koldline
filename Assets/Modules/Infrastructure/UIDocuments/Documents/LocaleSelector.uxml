@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML
+  xmlns:ui="UnityEngine.UIElements"
+  editor-extension-mode="False"
+>
+  <ui:Style src="LocaleSelector.uss" />
+  <ui:VisualElement name="screen-root" class="screen-root">
+    <ui:VisualElement name="container" class="button-container">
+      <ui:Label text="SELECT LANGUAGE" class="title" />
+        <!-- Locales Placeholder -->
+      <ui:VisualElement name="button-list" style="width: 100%;" />
+    </ui:VisualElement>
+  </ui:VisualElement>
+</ui:UXML>

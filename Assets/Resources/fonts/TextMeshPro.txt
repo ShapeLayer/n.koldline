@@ -1,0 +1,12 @@
+Atlas Resolution: 4096 4096
+Sampling Point Size: 60
+
+en:
+32-126,8200-9900
+
+jp:
+use japanese_full.txt
+
+ko:
+Character Set: Custom Range
+Character Sequence: 32-126,44032-55203,12593-12643,8200-9900

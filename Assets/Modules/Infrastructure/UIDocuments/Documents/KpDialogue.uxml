@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML
+  xmlns:ui="UnityEngine.UIElements"
+  xmlns:infra="Infrastructure.VisualElements"
+  editor-extension-mode="False"
+>
+  <ui:Style src="KpDialogue.uss" />
+  <ui:VisualElement name="screen-root" class="kp-dialogue-screen-root">
+    <infra:KpDialogueElement name="kp-dialogue-holder" class="kp-dialogue-holder" />
+  </ui:VisualElement>
+</ui:UXML>

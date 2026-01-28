@@ -1,0 +1,41 @@
+.screen-root {
+  flex-grow: 1;
+  background-color: #121418;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+}
+
+.button-container {
+  width: 400px;
+  align-items: center;
+}
+
+.title {
+  color: #FFFFFF;
+  font-size: 32px;
+  -unity-font-style: bold;
+  margin-bottom: 40px;
+  letter-spacing: 5px;
+}
+
+.locale-button {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 10px;
+  background-color: rgba(255, 255, 255, 0);
+  color: #FFFFFF;
+  border-width: 2px;
+  border-color: #FFFFFF;
+  border-radius: 0px;
+  font-size: 20px;
+  transition-property: background-color, color, scale;
+  transition-duration: 0.1s;
+}
+
+.locale-button:hover,
+.locale-button:focus {
+  background-color: #FFFFFF;
+  color: #121418;
+  scale: 1.02;
+}
