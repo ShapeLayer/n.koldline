@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Commons.Definitions;
+using Infrastructure.Commons;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -12,19 +14,7 @@ namespace Infrastructure.UIDocuments
   [RequireComponent(typeof(UIDocument))]
   public class LocaleSelectorUIController : MonoBehaviour
   {
-    [Serializable]
-    public struct LocaleData
-    {
-      public string LocaleCode;
-      public string DisplayName;
-    }
-
-    [SerializeField] private static readonly List<LocaleData> _supports = new List<LocaleData>
-    {
-      new LocaleData { LocaleCode = "en", DisplayName = "English" },
-      new LocaleData { LocaleCode = "ja", DisplayName = "日本語" },
-      new LocaleData { LocaleCode = "ko", DisplayName = "한국어" },
-    };
+    [SerializeField] private static readonly List<LocaleData> _supports = new List<LocaleData>(Defaults.SUPPORT_LOCALES);
 
     private VisualElement _root;
     private VisualElement _screenRoot;
