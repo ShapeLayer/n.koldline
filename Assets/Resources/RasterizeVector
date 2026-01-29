@@ -1,0 +1,83 @@
+#!/usr/bin/env bash
+
+if [ -z "$1" ]; then
+  echo "Usage: $0 <target_path>"
+  exit 1
+fi
+
+TARGET_DIR="$1"
+
+if [ ! -d "$TARGET_DIR" ]; then
+  echo "Error: '$TARGET_DIR' is not a valid."
+  exit 1
+fi
+
+if ! command -v magick &> /dev/null; then
+  echo "Error: Cannot found 'magick' command."
+  echo "Progress cannot continue without ImageMagick installed."
+  exit 1
+fi
+
+find "$TARGET_DIR" -type f -name "*.svg" -print0 | while IFS= read -r -d '' svg_path; do
+  dir_name=$(dirname "$svg_path")
+  base_name=$(basename "$svg_path" .svg)
+  config_path="${dir_name}/${base_name}.config"
+  
+  resolution=""
+  resample=""
+  format="png"
+  background="none"
+
+  # When find .config
+  if [[ -f "$config_path" ]]; then
+    echo ".config found, loading: $config_path"
+    while IFS='=' read -r key value || [[ -n "$key" ]]; do
+      # remove carriage returns, leading non-printable (BOM), and trim whitespace
+      key=$(echo "$key" | tr -d '\r' | sed 's/^[^[:alnum:]]*//' | xargs)
+      value=$(echo "$value" | tr -d '\r' | xargs)
+
+      case "$key" in
+        resolution) resolution="$value" ;;
+        resample)   resample="$value" ;;
+        format)     format="$value" ;;
+        background) background="$value" ;;
+      esac
+    done < "$config_path"
+  fi
+
+  output_path="${dir_name}/${base_name}.${format}"
+
+  if [[ -n "$resample" && -z "$resolution" ]]; then
+    resolution="$resample"
+  fi
+
+  # Command Assembly
+  cmd=("magick")
+  
+  # Command += resolution
+  if [[ -n "$resolution" ]]; then  
+    cmd+=("-density" "$resolution")
+  fi
+
+  # Command += background
+  if [[ -n "$background" ]]; then
+    cmd+=("-background" "$background")
+  fi
+
+  # Command += input file
+  cmd+=("$svg_path")
+
+  # Command += output file
+  cmd+=("$output_path")
+
+  # exec
+  echo "Converting: $svg_path → $output_path"
+  "${cmd[@]}"
+  echo "${cmd[@]}"
+
+  if [[ $? -eq 0 ]]; then
+    echo "Success: $output_path"
+  else
+    echo "Failure: $svg_path"
+  fi
+done

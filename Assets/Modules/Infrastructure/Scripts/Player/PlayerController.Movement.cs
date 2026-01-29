@@ -31,16 +31,10 @@ namespace Infrastructure.Player
     public bool IsRunning => _isRunning;
     [SerializeField] private bool _isCursorLocked = false;
     public bool IsCursorLocked => _isCursorLocked;
-
-    [Header("References")]
-    [SerializeField] private CharacterController _characterController;
-    [SerializeField] private Transform _cameraHolderTransform;
-    public Transform CameraHolderTransform => _cameraHolderTransform;
-
+    
     private void Awake_Movement()
     {
       _characterController = GetComponent<CharacterController>();
-      InitializeCameraHolder();
       LockCursor();
     }
 
@@ -51,15 +45,6 @@ namespace Infrastructure.Player
 
     Vector3 _forwardSpeed;
     Vector3 _rightSpeed;
-
-    void InitializeCameraHolder()
-    {
-      GameObject go = new GameObject("CameraHolder");
-      go.transform.SetParent(transform);
-      go.transform.localPosition = Vector3.zero;
-      go.transform.localRotation = Quaternion.identity;
-      _cameraHolderTransform = go.transform;
-    }
 
     void ComputeMovement()
     {

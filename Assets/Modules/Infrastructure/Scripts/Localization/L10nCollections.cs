@@ -8,11 +8,11 @@ using UnityEngine.Localization.Tables;
 
 namespace GamePlay.IntroPlay
 {
-  public static class IntroSceneL10nCollections
+  public static class L10nCollections
   {
     static StringTable currLangTable;
 
-    static IntroSceneL10nCollections()
+    static L10nCollections()
     {
       // Defer initialization to async methods to avoid blocking the main thread.
     }

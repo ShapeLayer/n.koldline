@@ -15,7 +15,7 @@ namespace GamePlay.IntroPlay
 
     async void OnLocaleSelected(string localeCode)
     {
-      await IntroSceneL10nCollections.SetLocaleAsync(localeCode);
+      await L10nCollections.SetLocaleAsync(localeCode);
       LocaleConfigService.SaveSelectedLocale(localeCode);
       await PlayIntro();
     }

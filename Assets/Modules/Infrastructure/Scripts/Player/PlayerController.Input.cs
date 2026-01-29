@@ -6,31 +6,14 @@ namespace Infrastructure.Player
   {
     [Header("Key Configuration")]
     [SerializeField] private KeyCode _keyMovingRunning = KeyCode.LeftControl;
+    [SerializeField] private KeyCode _keyInteractInteractableObject = KeyCode.F;
+    [SerializeField] private KeyCode _keySelectPreviousInteractable = KeyCode.Minus;
+    [SerializeField] private KeyCode _keySelectNextInteractable = KeyCode.Equals;
 
-    /*
-    private void Start_Input()
+    void Update_Input()
     {
-      RegisterOverlayLock();
-    }
-
-    private void Update_Input()
-    {
-      var escapeConsumed = HandleEscape();
-
-      if (_KeyHandlingLocked) return;
-
-      if (!escapeConsumed)
-        HandleEscapeMenuInput();
-
+      // Movement input handles at Playercontroller.Movement
       HandleInteractInteractableObject();
-    }
-
-    private void RegisterOverlayLock(IUIOverlay overlay, Action<bool> setLocked)
-    {
-      if (overlay == null || setLocked == null) return;
-
-      overlay.OverlayPushed += () => setLocked(true);
-      overlay.OverlayPopped += () => setLocked(false);
     }
 
     private void HandleInteractInteractableObject()
@@ -38,6 +21,5 @@ namespace Infrastructure.Player
       if (Input.GetKeyDown(_keyInteractInteractableObject)) TryInteractWithSelection();
       HandleInteractablesSelectionInput();
     }
-    */
   }
 }

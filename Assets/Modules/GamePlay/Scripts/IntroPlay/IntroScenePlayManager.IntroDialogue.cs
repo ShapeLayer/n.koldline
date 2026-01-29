@@ -35,7 +35,7 @@ namespace GamePlay.IntroPlay
         _activeDialogue = ActiveDialogue.Normal;
         await _normalFullCoverDialogueController.Show();
         await _normalFullCoverDialogueController.PlayDialogue(
-          IntroSceneL10nCollections.Q(KEY_INTRO_NOTIFY_KP_WARNING)
+          L10nCollections.Q(KEY_INTRO_NOTIFY_KP_WARNING)
         );
         _introSceneCameraController.PlayAudio(_audioClipGeneralUsesTeleport);
         await _normalFullCoverDialogueController.Hide();

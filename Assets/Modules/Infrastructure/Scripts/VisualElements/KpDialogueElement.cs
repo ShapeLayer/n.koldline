@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEngine.TextCore.Text;
 using Infrastructure.Definitions;
 
 namespace Infrastructure.VisualElements
@@ -8,7 +7,7 @@ namespace Infrastructure.VisualElements
   [UxmlElement]
   public partial class KpDialogueElement : VisualElement
   {
-    static readonly Font KpPuskumFont = Resources.Load<Font>("fonts/kppuskum/kppuskum");
+    static readonly Font KpPuskumFont = Resources.Load<Font>("Fonts/kppuskum/kppuskum");
 
     readonly Label _primaryLabel;
     readonly Label _secondaryLabel;
