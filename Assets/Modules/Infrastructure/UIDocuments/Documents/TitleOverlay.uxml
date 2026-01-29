@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML
+  xmlns:ui="UnityEngine.UIElements"
+  xmlns:infra="Infrastructure.VisualElements"
+  editor-extension-mode="False"
+>
+  <ui:Style src="TitleOverlay.uss" />
+  <ui:VisualElement name="screen-root" class="title-overlay-screen-root">
+    <infra:TitleOverlayElement name="title-overlay" class="title-overlay-holder" />
+  </ui:VisualElement>
+</ui:UXML>

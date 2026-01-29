@@ -6,6 +6,7 @@ namespace GamePlay.GameCompute
   {
     private static GameComputeManager _instance;
     public static GameComputeManager Instance => _instance;
+
     void Awake()
     {
       if (_instance != null && _instance != this)
@@ -15,8 +16,15 @@ namespace GamePlay.GameCompute
       }
       _instance = this;
       DontDestroyOnLoad(gameObject);
+
+      Awake_Loader();
     }
     
+    void Start()
+    {
+      Start_Loader();
+    }
+
     void Update()
     {
       Update_TimeLimit();

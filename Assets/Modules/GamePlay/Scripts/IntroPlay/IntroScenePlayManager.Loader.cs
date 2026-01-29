@@ -3,7 +3,7 @@ using GamePlay.Definitions;
 using Infrastructure.Exceptions;
 using Infrastructure.UIDocuments;
 
-namespace GamePlay.IntroPlay
+namespace Infrastructure.Localization
 {
   public partial class IntroScenePlayManager : MonoBehaviour
   {
@@ -28,7 +28,7 @@ namespace GamePlay.IntroPlay
       _introSceneCameraController = FindFirstObjectByType<IntroSceneCameraController>();
       if (_introSceneCameraController == null) throw new InitializingNotSucceed("IntroSceneCameraController not found");
 
-      _audioClipGeneralUsesTeleport = Resources.Load<AudioClip>($"Musics/{Defaults.AUDIO_CLIP_GENERAL_USES_TELEPORT}");
+      _audioClipGeneralUsesTeleport = Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_MUSIC}/{Defaults.AUDIO_CLIP_GENERAL_USES_TELEPORT}");
       if (_audioClipGeneralUsesTeleport == null) throw new InitializingNotSucceed("AudioClip GeneralUsesTeleport not found");
     }
   }

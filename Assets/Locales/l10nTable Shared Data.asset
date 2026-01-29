@@ -15,20 +15,44 @@ MonoBehaviour:
   m_TableCollectionName: l10nTable
   m_TableCollectionNameGuidString: 1d8d02c1e9b9b41b88d6644cd7a85206
   m_Entries:
-  - m_Id: 5740533112832
-    m_Key: ITEM_TELEPHONE
+  - m_Id: 414684191645698
+    m_Key: GAME_STARTING_KP_4
     m_Metadata:
       m_Items: []
-  - m_Id: 5740566667264
-    m_Key: SCRIPT_SENDING_ICBM
+  - m_Id: 414684191645697
+    m_Key: GAME_STARTING_KP_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5740566667266
+    m_Key: GAME_INTRO_NOTIFY_KP_WARNING
+    m_Metadata:
+      m_Items: []
+  - m_Id: 414684191645699
+    m_Key: GAME_STARTING_KP_5
     m_Metadata:
       m_Items: []
   - m_Id: 5740566667265
     m_Key: ITEM_BIG_BEAUTYFUL_BUTTON
     m_Metadata:
       m_Items: []
-  - m_Id: 5740566667266
-    m_Key: GAME_INTRO_NOTIFY_KP_WARNING
+  - m_Id: 414684191645700
+    m_Key: GAME_STARTING_KP_6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5740533112832
+    m_Key: ITEM_TELEPHONE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 414684132925440
+    m_Key: GAME_STARTING_KP_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5740566667264
+    m_Key: SCRIPT_SENDING_ICBM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 414684191645696
+    m_Key: GAME_STARTING_KP_2
     m_Metadata:
       m_Items: []
   m_Metadata:

@@ -1,4 +1,4 @@
-namespace GamePlay.IntroPlay
+namespace Infrastructure.Localization
 {
   public class StringAssetBaseKP
   {

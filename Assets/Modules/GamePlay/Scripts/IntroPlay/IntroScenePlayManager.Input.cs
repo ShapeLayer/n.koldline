@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace GamePlay.IntroPlay
+namespace Infrastructure.Localization
 {
   public partial class IntroScenePlayManager : MonoBehaviour
   {

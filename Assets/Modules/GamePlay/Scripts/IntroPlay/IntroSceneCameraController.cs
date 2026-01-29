@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace GamePlay.IntroPlay
+namespace Infrastructure.Localization
 {
   /**
    * AudioSource를 여기에 붙인 이유:

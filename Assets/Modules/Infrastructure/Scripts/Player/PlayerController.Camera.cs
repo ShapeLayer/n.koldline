@@ -31,11 +31,10 @@ namespace Infrastructure.Player
       _cameraHolderTransform = go.transform;
     }
 
-    void LateUpdate_Camera()
+    void Start_Camera()
     {
       if (_camController == null) return;
 
-      // Ensure camera sticks to the local owner's holder even if other events tried to retarget.
       if (_camController.FollowingCameraHolder != _cameraHolderTransform)
         _camController.SetTarget(this);
     }

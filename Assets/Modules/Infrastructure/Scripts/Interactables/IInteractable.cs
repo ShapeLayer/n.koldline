@@ -22,6 +22,8 @@ namespace Infrastructure.Interactables
     /// 기본적으로는 하얀색으로 설정하세요.
     /// </summary>
     public Color DisplayColor { get; }
+
+    public bool IsInteractable { get; }
     
     /// <summary>
     /// 플레이어가 상호작용할 때, 그 처리를 정의합니다. 

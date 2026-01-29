@@ -1,6 +1,6 @@
 using UnityEngine;
 using Infrastructure.Interactables;
-using GamePlay.IntroPlay;
+using Infrastructure.Localization;
 
 namespace GamePlay.IngameObject
 {
@@ -10,6 +10,8 @@ namespace GamePlay.IngameObject
     public override string DisplayText => L10nCollections.Q(L10N_KEY_DISPLAYNAME);
     public override Sprite DisplayIcon => null;
     public override Color DisplayColor => Color.white;
+    private bool _isInteractable = true;
+    public override bool IsInteractable => _isInteractable;
     public override void Interact(Transform interactor)
     {
       Debug.Log("TelephoneController Interact called");

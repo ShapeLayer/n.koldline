@@ -16,8 +16,24 @@ MonoBehaviour:
     m_Code: ja-JP
   m_SharedData: {fileID: 11400000, guid: 1d8d02c1e9b9b41b88d6644cd7a85206, type: 2}
   m_Metadata:
-    m_Items: []
-  m_TableData: []
+    m_Items:
+    - rid: 9161603231276073167
+  m_TableData:
+  - m_Id: 5740566667265
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 414684132925440
+    m_Localized: 
+    m_Metadata:
+      m_Items:
+      - rid: 9161603231276073167
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 9161603231276073167
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 414684132925440

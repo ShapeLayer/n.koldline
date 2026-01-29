@@ -54,6 +54,7 @@ namespace Infrastructure.Player
         if (collider == null) continue;
         if (collider.TryGetComponent(out IInteractable interactable) && !_scratchInteractables.Contains(interactable))
         {
+          if (!interactable.IsInteractable) continue;
           _scratchInteractables.Add(interactable);
         }
       }

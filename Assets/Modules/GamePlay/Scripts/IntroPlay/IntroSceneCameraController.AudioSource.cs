@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace GamePlay.IntroPlay
+namespace Infrastructure.Localization
 {
   [RequireComponent(typeof(AudioSource))]
   public partial class IntroSceneCameraController : MonoBehaviour

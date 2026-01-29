@@ -19,7 +19,8 @@ namespace Infrastructure.Player
 
     void Start()
     {
-      // Start_Input();
+      Start_Loader();
+      Start_Camera();
     }
 
     void Update()
@@ -27,11 +28,6 @@ namespace Infrastructure.Player
       Update_Movement();
       Update_Interactables();
       Update_Input();
-    }
-
-    void LateUpdate()
-    {
-      LateUpdate_Camera();
     }
   }
 }

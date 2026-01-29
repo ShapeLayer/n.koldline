@@ -1,7 +1,7 @@
 using UnityEngine;
 using Infrastructure.UIDocuments;
 
-namespace GamePlay.IntroPlay
+namespace Infrastructure.Localization
 {
   public partial class IntroScenePlayManager : MonoBehaviour
   {
