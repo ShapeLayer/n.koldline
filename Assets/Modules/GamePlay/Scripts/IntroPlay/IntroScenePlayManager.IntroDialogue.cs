@@ -57,7 +57,7 @@ namespace Infrastructure.Localization
         bool isLocaleKR = LocalizationSettings.SelectedLocale.Identifier.Code.Contains("ko");
         await _kpDialogueController.PlayDialogue(StringAssetBaseKP.GAME_INTRO_KP_1, !isLocaleKR ? L10nCollections.Q(KEY_GAME_INTRO_KP_1) : "");
         await _kpDialogueController.PlayDialogue(StringAssetBaseKP.GAME_INTRO_KP_2_1, !isLocaleKR ? L10nCollections.Q(KEY_GAME_INTRO_KP_2_1) : "");
-        await _kpDialogueController.PlayDialogue(StringAssetBaseKP.GAME_INTRO_KP_2_2, !isLocaleKR ? L10nCollections.Q(KEY_GAME_INTRO_KP_2_2) : "", presetPrimary: StringAssetBaseKP.GAME_INTRO_KP_2_1, presetSecondary: L10nCollections.Q(KEY_GAME_INTRO_KP_2_1));
+        await _kpDialogueController.PlayDialogue(StringAssetBaseKP.GAME_INTRO_KP_2_2, !isLocaleKR ? L10nCollections.Q(KEY_GAME_INTRO_KP_2_2) : "", presetPrimary: StringAssetBaseKP.GAME_INTRO_KP_2_1, presetSecondary: !isLocaleKR ? L10nCollections.Q(KEY_GAME_INTRO_KP_2_1) : "");
         await _kpDialogueController.PlayDialogue(StringAssetBaseKP.GAME_INTRO_KP_3, !isLocaleKR ? L10nCollections.Q(KEY_GAME_INTRO_KP_3) : "");
         await _kpDialogueController.PlayDialogue(StringAssetBaseKP.GAME_INTRO_KP_4, !isLocaleKR ? L10nCollections.Q(KEY_GAME_INTRO_KP_4) : "");
         _introSceneCameraController.StopAudio();

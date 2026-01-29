@@ -3,9 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Infrastructure.Definitions;
-#if UNITY_EDITOR
 using UnityEngine;
-#endif
 
 namespace Infrastructure.Config
 {
