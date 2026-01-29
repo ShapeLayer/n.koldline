@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Commons.Definitions;
+
 using Infrastructure.Commons;
+using Infrastructure.Definitions;
 using UnityEngine;
 using UnityEngine.UIElements;
 

@@ -13,6 +13,13 @@ namespace Infrastructure.Localization
      */
     
     const string KEY_INTRO_NOTIFY_KP_WARNING = "GAME_INTRO_NOTIFY_KP_WARNING";
+    const string KEY_GAME_INTRO_KP_1 = "GAME_INTRO_KP_1";
+    const string KEY_GAME_INTRO_KP_2 = "GAME_INTRO_KP_2";
+    const string KEY_GAME_INTRO_KP_2_1 = "GAME_INTRO_KP_2_1";
+    const string KEY_GAME_INTRO_KP_2_2 = "GAME_INTRO_KP_2_2";
+    const string KEY_GAME_INTRO_KP_3 = "GAME_INTRO_KP_3";
+    const string KEY_GAME_INTRO_KP_4 = "GAME_INTRO_KP_4";
+    
     const int INGAME_SCENE_BUILD_INDEX = 1;
 
     bool _isPlayingIntro;
@@ -48,11 +55,11 @@ namespace Infrastructure.Localization
         // int kpYear = year - 1911;
         // await _normalFullCoverDialogueController.PlayDialogue(string.Format(StringAssetBaseKP.GAME_INTRO_KP_1, year, kpYear));
         bool isLocaleKR = LocalizationSettings.SelectedLocale.Identifier.Code.Contains("ko");
-        await _kpDialogueController.PlayDialogue(StringAssetBaseKP.GAME_INTRO_KP_1, !isLocaleKR ? "PLACEHOLDER" : "");
-        await _kpDialogueController.PlayDialogue(StringAssetBaseKP.GAME_INTRO_KP_2_1, !isLocaleKR ? "PLACEHOLDER" : "");
-        await _kpDialogueController.PlayDialogue(StringAssetBaseKP.GAME_INTRO_KP_2_2, !isLocaleKR ? "PLACEHOLDER" : "", presetPrimary: StringAssetBaseKP.GAME_INTRO_KP_2_1);
-        await _kpDialogueController.PlayDialogue(StringAssetBaseKP.GAME_INTRO_KP_3, !isLocaleKR ? "PLACEHOLDER" : "");
-        await _kpDialogueController.PlayDialogue(StringAssetBaseKP.GAME_INTRO_KP_4, !isLocaleKR ? "PLACEHOLDER" : "");
+        await _kpDialogueController.PlayDialogue(StringAssetBaseKP.GAME_INTRO_KP_1, !isLocaleKR ? L10nCollections.Q(KEY_GAME_INTRO_KP_1) : "");
+        await _kpDialogueController.PlayDialogue(StringAssetBaseKP.GAME_INTRO_KP_2_1, !isLocaleKR ? L10nCollections.Q(KEY_GAME_INTRO_KP_2_1) : "");
+        await _kpDialogueController.PlayDialogue(StringAssetBaseKP.GAME_INTRO_KP_2_2, !isLocaleKR ? L10nCollections.Q(KEY_GAME_INTRO_KP_2_2) : "", presetPrimary: StringAssetBaseKP.GAME_INTRO_KP_2_1, presetSecondary: L10nCollections.Q(KEY_GAME_INTRO_KP_2_1));
+        await _kpDialogueController.PlayDialogue(StringAssetBaseKP.GAME_INTRO_KP_3, !isLocaleKR ? L10nCollections.Q(KEY_GAME_INTRO_KP_3) : "");
+        await _kpDialogueController.PlayDialogue(StringAssetBaseKP.GAME_INTRO_KP_4, !isLocaleKR ? L10nCollections.Q(KEY_GAME_INTRO_KP_4) : "");
         _introSceneCameraController.StopAudio();
         await _kpDialogueController.Hide();
         _activeDialogue = ActiveDialogue.None;

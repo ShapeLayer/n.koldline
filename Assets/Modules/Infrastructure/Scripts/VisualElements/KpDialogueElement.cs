@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 using Infrastructure.Definitions;
+using Infrastructure.UIElements;
 
 namespace Infrastructure.VisualElements
 {
@@ -13,6 +14,14 @@ namespace Infrastructure.VisualElements
     readonly Label _secondaryLabel;
     readonly Label _clickHint;
 
+    static readonly Font[] s_SecondaryFallbackFonts = new Font[]
+    {
+      Resources.Load<Font>("Fonts/SarasaMono/SarasaMonoK-Regular"),
+      Resources.Load<Font>("Fonts/SarasaMono/SarasaMonoJ-Regular"),
+    };
+    
+    Font _currentSecondaryFont;
+
     public KpDialogueElement()
     {
       name = "kp-dialogue";
@@ -24,9 +33,17 @@ namespace Infrastructure.VisualElements
       style.backgroundColor = new Color(Defaults.BASE_BACKGROUND_COLOR[0] / 255f, Defaults.BASE_BACKGROUND_COLOR[1] / 255f, Defaults.BASE_BACKGROUND_COLOR[2] / 255f);
 
       _primaryLabel = CreateLabel("kp-dialogue-primary");
-      _secondaryLabel = CreateLabel("kp-dialogue-secondary");
       ApplyFont(_primaryLabel);
-      ApplyFont(_secondaryLabel);
+      _primaryLabel.style.fontSize = 24;
+      _primaryLabel.style.maxWidth = Length.Percent(90);
+      _primaryLabel.style.marginBottom = 12;
+      _primaryLabel.style.unityFontStyleAndWeight = FontStyle.Bold;
+      _secondaryLabel = CreateLabel("kp-dialogue-secondary");
+      MultilingualFontFallback.ApplyToLabel(_secondaryLabel, ref _currentSecondaryFont, string.Empty, s_SecondaryFallbackFonts);
+      _secondaryLabel.style.fontSize = 18;
+      _secondaryLabel.style.maxWidth = Length.Percent(80);
+      _secondaryLabel.style.unityFontStyleAndWeight = FontStyle.Normal;
+      
       _clickHint = CreateHint();
 
       Add(_primaryLabel);
@@ -41,10 +58,7 @@ namespace Infrastructure.VisualElements
       label.AddToClassList(className);
       label.style.unityTextAlign = TextAnchor.MiddleCenter;
       label.style.color = Color.white;
-      label.style.fontSize = 24;
       label.style.whiteSpace = WhiteSpace.Normal;
-      label.style.maxWidth = Length.Percent(80);
-      label.style.unityFontStyleAndWeight = FontStyle.Bold;
       label.style.alignSelf = Align.Center;
       return label;
     }
