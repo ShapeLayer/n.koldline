@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Infrastructure.Localization;
 using Infrastructure.UIDocuments;
+using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 
 namespace GamePlay.GameCompute
@@ -20,6 +21,8 @@ namespace GamePlay.GameCompute
 #endif
         return;
       }
+
+      ResetGameState();
 
       await _mainCameraController.PlayAudioOneShotAsync(_audioNuclearButtonPressed);
       await Task.Delay(500);
@@ -43,8 +46,12 @@ namespace GamePlay.GameCompute
         _mainCameraController.PlayAudioOneShotAsync(_audioIntroStab),
         _title.InstantShowAsync(L10nCollections.Q(L10N_KEY_GAME_STARTING_KP_3), 3f)
       );
-      PlaySoundDelayAfter(_audioTimerSet, 1f);
-      // Show Timer
+      _ = DoDelayAfter(() =>
+      {
+        _worldMapPaneController.SetTimerTimeMilliseconds(_timeRemainingMs);
+        _mainCameraController.PlayAudioOneShot(_audioTimerSet);
+        _worldMapPaneController.ShowTimer();
+      }, 1f);
       await Task.WhenAll(
         _mainCameraController.PlayAudioOneShotAsync(_audioIntroStab),
         _title.InstantShowAsync(L10nCollections.Q(L10N_KEY_GAME_STARTING_KP_4), 3f)
@@ -58,14 +65,20 @@ namespace GamePlay.GameCompute
         _title.InstantShowAsync(L10nCollections.Q(L10N_KEY_GAME_STARTING_KP_6), 3f)
       );
       // Start Timer
+      StartTimeLimitCountdown();
     }
-    async Task PlaySoundDelayAfter(AudioClip audioClip, float delaySeconds)
+    
+    async Task DoDelayAfter(Action fn, float delaySeconds)
     {
       if (delaySeconds > 0f)
         await Task.Delay(TimeSpan.FromSeconds(delaySeconds));
 
-      _mainCameraController.PlayAudioOneShot(audioClip);
+      fn();
     }
 
+    void ResetGameState()
+    {
+      ResetTimeLimit();
+    }
   }
 }

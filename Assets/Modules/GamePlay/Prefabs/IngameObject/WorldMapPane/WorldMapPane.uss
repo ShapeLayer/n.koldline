@@ -1,0 +1,51 @@
+.world-map-screen-root {
+  flex-grow: 1;
+}
+
+.world-map-pane {
+  flex-grow: 1;
+  position: relative;
+  background-color: rgb(0, 0, 0);
+}
+
+.world-map-holder {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.world-map-timer-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 10px;
+
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.world-map-timer {
+  color: rgb(255, 255, 255);
+  font-size: 26px;
+  unity-font-style: bold;
+  unity-text-outline-width: 1px;
+  unity-text-outline-color: rgba(0, 0, 0, 0.75);
+
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+
+  background-color: rgba(0, 0, 0, 0.55);
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}

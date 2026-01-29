@@ -1,4 +1,5 @@
 using GamePlay.Definitions;
+using GamePlay.WorldMapPane;
 using Infrastructure.Camera;
 using Infrastructure.Player;
 using UnityEngine;
@@ -11,9 +12,11 @@ namespace GamePlay.GameCompute
     [SerializeField] AudioClip _audioNuclearButtonPressed;
     [SerializeField] AudioClip _audioIntroStab;
     [SerializeField] AudioClip _audioTimerSet;
+    [SerializeField] AudioClip _audioTimerTickTock;
     
     [Header("References")]
     [SerializeField] MainCameraController _mainCameraController;
+    [SerializeField] WorldMapPaneController _worldMapPaneController;
 
     void Awake_Loader()
     {
@@ -27,9 +30,11 @@ namespace GamePlay.GameCompute
 
     void LoadResources()
     {
+      _worldMapPaneController = FindFirstObjectByType<WorldMapPaneController>();
       _audioNuclearButtonPressed = Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_SOUND}/{Defaults.AUDIO_CLIP_NUCLEAR_BUTTON_PRESSED}");
       _audioIntroStab = Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_SOUND}/{Defaults.AUDIO_CLIP_INTRO_STAB}");
       _audioTimerSet = Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_SOUND}/{Defaults.AUDIO_CLIP_TIMER_SET}");
+      _audioTimerTickTock = Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_SOUND}/{Defaults.AUDIO_CLIP_TIMER_TICK_TOCK}");
     }
 
     void LoadSingletons()
@@ -41,7 +46,10 @@ namespace GamePlay.GameCompute
     {
       if (_audioNuclearButtonPressed == null) return false;
       if (_audioIntroStab == null) return false;
+      if (_audioTimerSet == null) return false;
+      if (_audioTimerTickTock == null) return false;
       if (_mainCameraController == null) return false;
+      if (_worldMapPaneController == null) return false;
       return true;
     }
   }

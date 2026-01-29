@@ -6,14 +6,27 @@ namespace GamePlay.GameCompute
 {
   public partial class GameComputeManager
   {
+    [Header("Time Limit")]
     public static readonly int timeLimitMs = Defaults.GAME_COMPUTE_TIME_LIMIT;
     [SerializeField] int _timeRemainingMs;
-    [SerializeField] float _timeLimitEndsAt;
     [SerializeField] bool _timeLimitElapsingActive = false;
+
+    [SerializeField] bool _timeLimitTickTockPending;
+    [SerializeField] int _timeLimitLastWholeSecond;
 
     void Update_TimeLimit()
     {
       ProcessTimeLimitElapsed();
+
+      if (_timeLimitTickTockPending)
+      {
+        _timeLimitTickTockPending = false;
+        if (_mainCameraController != null && _audioTimerTickTock != null)
+          _ = _mainCameraController.PlayAudioOneShotAsync(_audioTimerTickTock);
+      }
+
+      if (_worldMapPaneController != null)
+        _worldMapPaneController.SetTimerTimeMilliseconds(_timeRemainingMs);
     }
 
     void ProcessTimeLimitElapsed()
@@ -23,22 +36,32 @@ namespace GamePlay.GameCompute
         return;
       }
 
-      var remainingSeconds = Mathf.Max(0f, _timeLimitEndsAt - Time.realtimeSinceStartup);
-      var remainingMilliseconds = (int)(remainingSeconds * 1000f);
+      var prevWholeSecond = Mathf.Max(0, _timeRemainingMs) / 1000;
 
-      _timeRemainingMs = remainingMilliseconds;
+      var deltaMs = Mathf.CeilToInt(Time.unscaledDeltaTime * 1000f);
+      if (deltaMs <= 0)
+        return;
 
-      if (remainingMilliseconds <= 0)
+      _timeRemainingMs = Mathf.Max(0, _timeRemainingMs - deltaMs);
+
+      var newWholeSecond = _timeRemainingMs / 1000;
+      if (newWholeSecond != prevWholeSecond)
       {
-        _timeLimitElapsingActive = false;
+        _timeLimitTickTockPending = true;
+        _timeLimitLastWholeSecond = newWholeSecond;
       }
+
+      if (_timeRemainingMs <= 0)
+        _timeLimitElapsingActive = false;
     }
 
     public void ResetTimeLimit()
     {
       _timeRemainingMs = timeLimitMs;
       _timeLimitElapsingActive = false;
-      _timeLimitEndsAt = 0f;
+
+      _timeLimitTickTockPending = false;
+      _timeLimitLastWholeSecond = _timeRemainingMs / 1000;
     }
 
     public void StartTimeLimitCountdown()
@@ -46,8 +69,6 @@ namespace GamePlay.GameCompute
       ResetTimeLimit();
 
       _timeLimitElapsingActive = true;
-      _timeLimitEndsAt = Time.realtimeSinceStartup + (timeLimitMs / 1000f);
-
       Update_TimeLimit();
     }
 

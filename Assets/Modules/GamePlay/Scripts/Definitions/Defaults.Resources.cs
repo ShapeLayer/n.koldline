@@ -8,5 +8,6 @@ namespace GamePlay.Definitions
     public const string AUDIO_CLIP_NUCLEAR_BUTTON_PRESSED = "nuclear-button";
     public const string AUDIO_CLIP_INTRO_STAB = "stab";
     public const string AUDIO_CLIP_TIMER_SET = "timer-set";
+    public const string AUDIO_CLIP_TIMER_TICK_TOCK = "timer-tick-tock"; 
   }
 }
