@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Commons.Definitions;
 using Infrastructure.Interactables;
 using Infrastructure.VisualElements;
 using UnityEngine;
@@ -26,6 +27,8 @@ namespace Infrastructure.UIDocuments
     {
       if (_uiDocument == null)
         _uiDocument = GetComponent<UIDocument>();
+
+      _uiDocument.sortingOrder = Defaults.SORT_ORDER_INTERACTABLE_HINT;
 
       CacheVisualReferences();
     }

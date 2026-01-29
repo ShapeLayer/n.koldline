@@ -7,9 +7,11 @@ namespace GamePlay.IngameObject
 {
   public class BigBeautifulButtonController : InteractableObjectABC
   {
-    public const string L10N_KEY_DISPLAYNAME = "ITEM_BIG_BEAUTYFUL_BUTTON";
+    public const string L10N_KEY_DISPLAYNAME = "ITEM_BIG_BEAUTIFUL_BUTTON";
+    public const string SPRITE_NAME = "BigBeautifulButtonIcon";
     public override string DisplayText => L10nCollections.Q(L10N_KEY_DISPLAYNAME);
-    public override Sprite DisplayIcon => null;
+    [SerializeField] private Sprite _displayIcon;
+    public override Sprite DisplayIcon => _displayIcon;
     public override Color DisplayColor => Color.white;
     private bool _isInteractable = true;
     public override bool IsInteractable => _isInteractable;
@@ -17,6 +19,11 @@ namespace GamePlay.IngameObject
     [Header("References")]
     [SerializeField] private GameComputeManager _gameComputeManager;
     
+    void Awake()
+    {
+      _displayIcon = Resources.Load<Sprite>($"Textures/{SPRITE_NAME}");
+    }
+
     void Start()
     {
       _gameComputeManager = GameComputeManager.Instance;

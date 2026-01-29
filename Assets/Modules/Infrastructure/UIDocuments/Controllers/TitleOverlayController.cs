@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Threading.Tasks;
+using Commons.Definitions;
 using Infrastructure.VisualElements;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -32,6 +33,9 @@ namespace Infrastructure.UIDocuments
       }
 
       _uiDocument = GetComponent<UIDocument>();
+
+      _uiDocument.sortingOrder = Defaults.SORT_ORDER_TITLE_OVERLAY;
+
       CacheElements();
       HideImmediate();
     }

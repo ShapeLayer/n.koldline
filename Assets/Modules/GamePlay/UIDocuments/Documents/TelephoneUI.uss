@@ -1,0 +1,23 @@
+.telephone-screen-root {
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.0);
+}
+
+.telephone-ui {
+  width: 512px;
+  height: 512px;
+  background-color: rgba(0, 0, 0, 0.0);
+  justify-content: center;
+  align-items: center;
+}
+
+.telephone-render {
+  width: 512px;
+  height: 512px;
+  background-color: rgba(0, 0, 0, 0.0);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}

@@ -1,3 +1,4 @@
+using Infrastructure.UIStack;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -48,6 +49,8 @@ namespace Infrastructure.Player
 
     void ComputeMovement()
     {
+      if (UIOverlayStackManager.Instance != null && UIOverlayStackManager.Instance.Count > 0)
+        return;
       ComputeMovementPlayerObject();
       ComputeMovementCameraHolder();
     }

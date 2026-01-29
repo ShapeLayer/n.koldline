@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML
+  xmlns:ui="UnityEngine.UIElements"
+  xmlns:gameplay="GamePlay.VisualElements"
+  editor-extension-mode="False"
+>
+  <ui:Style src="TelephoneUI.uss" />
+  <ui:VisualElement name="screen-root" class="telephone-screen-root">
+    <gameplay:TelephoneUI name="telephone-ui" class="telephone-ui" />
+  </ui:VisualElement>
+</ui:UXML>

@@ -9,5 +9,6 @@ namespace GamePlay.Definitions
     public const string AUDIO_CLIP_INTRO_STAB = "stab";
     public const string AUDIO_CLIP_TIMER_SET = "timer-set";
     public const string AUDIO_CLIP_TIMER_TICK_TOCK = "timer-tick-tock"; 
+    public const string AUDIO_CLIP_BUTTON_PRESSED = "button-pressed";
   }
 }

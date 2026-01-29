@@ -1,3 +1,4 @@
+using Infrastructure.UIStack;
 using UnityEngine;
 
 namespace Infrastructure.Player
@@ -13,7 +14,16 @@ namespace Infrastructure.Player
     void Update_Input()
     {
       // Movement input handles at Playercontroller.Movement
+      HandleOverlayPopInput();
+      if (UIOverlayStackManager.Instance != null && UIOverlayStackManager.Instance.Count > 0)
+        return;
       HandleInteractInteractableObject();
+    }
+
+    private void HandleOverlayPopInput()
+    {
+      if (Input.GetKeyDown(KeyCode.Escape))
+        UIOverlayStackManager.Instance?.Pop();
     }
 
     private void HandleInteractInteractableObject()

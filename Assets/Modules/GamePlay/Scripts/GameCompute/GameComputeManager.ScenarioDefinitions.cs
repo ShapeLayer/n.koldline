@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using GamePlay.IngameObject;
 using Infrastructure.Localization;
 using Infrastructure.UIDocuments;
 using Unity.VisualScripting.Dependencies.NCalc;
