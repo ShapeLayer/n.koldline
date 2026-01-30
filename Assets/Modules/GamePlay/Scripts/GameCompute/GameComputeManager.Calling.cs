@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using GamePlay.CallingInteraction;
 using Infrastructure.Commons;
@@ -11,6 +12,7 @@ namespace GamePlay.GameCompute
   public partial class GameComputeManager
   {
     [SerializeField] ResponseNode _currentNode;
+    [SerializeField] ResponseNode _nextNode;
     [SerializeField] AudioClip[] _currentQueuedARSClips;
 
     [SerializeField] string _localeCode;           // 현재 로케일 코드
@@ -23,14 +25,17 @@ namespace GamePlay.GameCompute
     [SerializeField] string _powerCodeLowPart;     // 저속 탄도 미사일 앞 2자리
     [SerializeField] string _powerCodeHighPart;    // 고속 탄도 미사일 앞 2자리
     [SerializeField] string _interceptCodeX0Part;  // X0 방식 뒤 2자리
-    [SerializeField] string _interceptCodeY0Part;  // Y0 방식 뒤 2자리      // 권한 코드 부분 (앞/뒤 두자리)
+    [SerializeField] string _interceptCodeY0Part;  // Y0 방식 뒤 2자리
     [SerializeField] string _botCode;              // 로봇 확인용 코드
-    [SerializeField] string _newIssuedCode;
+    [SerializeField] TelephoneButtonType[] _newIssuedCode;        // 직통 회선 코드
+
+    readonly List<TelephoneButtonType> _numberSequenceBuffer = new();
+    TelephoneButtonType _pendingButton;
+    bool _hasPendingButton;
 
     void PrepareInstanceVariable()
     {
-      _waitNum = UnityEngine.Random.Range(1, 30);
-      _waitMin = UnityEngine.Random.Range(10, 30);
+      PrepareInstanceVariable_Specific();
     }
 
     void ReadyCurrentARS()
@@ -46,172 +51,161 @@ namespace GamePlay.GameCompute
         _currentQueuedARSClips = _currentQueuedARSClips.Append(_audioARSClips[AUDIO_CLIPS_NAVIGATION_HINT_KEY][0]).ToArray();
     }
 
-    void ProcessCurrentARSResponse
-    (
+    void OnTelephoneButtonClickedTransfer(TelephoneButtonType buttonType)
+    {
+      _pendingButton = buttonType;
+      _hasPendingButton = true;
+      OnButtonPressed();
+    }
+
+    public void OnButtonPressed()
+    {
+      if (_hasPendingButton == false)
+        return;
+
+      EnsureCurrentNodeInitialized();
+      ApplyAlwaysTransitionsIfNeeded();
+
+      var pressedButton = _pendingButton;
+      _hasPendingButton = false;
+
+      if (pressedButton == TelephoneButtonType.Sharp)
+      {
+        if (_numberSequenceBuffer.Count > 0)
+        {
+          ProcessCurrentARSResponse(NodeTransferConditionType.NumberSequence, _numberSequenceBuffer.ToArray());
+          _numberSequenceBuffer.Clear();
+        }
+        else
+        {
+          ProcessCurrentARSResponse(NodeTransferConditionType.SinglePressed, new[] { pressedButton });
+        }
+
+        ApplyNodeTransitionIfReady();
+        return;
+      }
+
+      if (HasTransferCondition(NodeTransferConditionType.NumberSequence) && IsNumberButton(pressedButton))
+      {
+        _numberSequenceBuffer.Add(pressedButton);
+        return;
+      }
+
+      ProcessCurrentARSResponse(NodeTransferConditionType.SinglePressed, new[] { pressedButton });
+      ApplyNodeTransitionIfReady();
+    }
+    public void ProcessCurrentARSResponse(
       NodeTransferConditionType conditionType,
       TelephoneButtonType[] pressedButtons = null
     )
     {
+      if (ProcessCurrentSpecialARSResponse(conditionType, pressedButtons))
+        return;
+      
+      ProcessNormalARSResponse(conditionType, pressedButtons);
     }
 
-    void ReadyCurrentARSFormatting()
+    void ProcessNormalARSResponse(
+      NodeTransferConditionType conditionType,
+      TelephoneButtonType[] pressedButtons = null
+    )
     {
-      // 1. 국가 선택
-      if (_currentNode.Id == CID.NATN_SELECTED.Id)
-      {
-        switch (_localeCode)
-        {
-          case "ja":
-          case "ko":
-            _currentQueuedARSClips = new AudioClip[] {
-                            _audioARSClips[_selectedNationId][0],
-                            _audioARSClips[CID.NATN_SELECTED.AudioL10NKey + "_S1"][0],
-                        };
-            break;
-          default: // en 포함
-            _currentQueuedARSClips = new AudioClip[] {
-                            _audioARSClips[CID.NATN_SELECTED.AudioL10NKey + "_S1"][0],
-                            _audioARSClips[_selectedNationId][0],
-                            _audioARSClips[CID.NATN_SELECTED.AudioL10NKey + "_S2"][0],
-                        };
-            break;
-        }
-      }
-      // 2. 신분 선택
-      else if (_currentNode.Id == CID.IDENTITY_SELECTED.Id)
-      {
-        switch (_localeCode)
-        {
-          case "ja":
-          case "ko":
-            _currentQueuedARSClips = new AudioClip[] {
-                            _audioARSClips[_selectedNationId][0],
-                            _audioARSClips[CID.IDENTITY_SELECTED.AudioL10NKey + "_S1"][0],
-                            _audioARSClips[_selectedPersonalRank][0],
-                            _audioARSClips[CID.IDENTITY_SELECTED.AudioL10NKey + "_S2"][0],
-                        };
-            break;
-          default: // en 포함
-            _currentQueuedARSClips = new AudioClip[] {
-                            _audioARSClips[CID.IDENTITY_SELECTED.AudioL10NKey + "_S1"][0],
-                            _audioARSClips[_selectedNationId][0],
-                            _audioARSClips[CID.IDENTITY_SELECTED.AudioL10NKey + "_S2"][0],
-                            _audioARSClips[_selectedPersonalRank][0],
-                            _audioARSClips[CID.IDENTITY_SELECTED.AudioL10NKey + "_S3"][0],
-                        };
-            break;
-        }
-      }
-      // 3. 예약 확인
-      else if (_currentNode.Id == CID.HOTLINE_RESERVE.Id)
-      {
-        var now = DateTime.Now;
-        if (_reservedDateTime == null || _reservedDateTime <= now)
-          _reservedDateTime = now + TimeSpan.FromMinutes(10) + TimeSpan.FromMinutes(UnityEngine.Random.Range(0, 20));
+      if (_currentNode.Transfers == null || _currentNode.Transfers.Length == 0)
+        return;
 
-        switch (_localeCode)
+      foreach (var transfer in _currentNode.Transfers)
+      {
+        if (transfer.Condition.Condition != conditionType)
+          continue;
+
+        switch (conditionType)
         {
-          case "ja":
-          case "ko":
-            _currentQueuedARSClips = new AudioClip[] {
-                            _audioARSClips[CID.HOTLINE_RESERVE.AudioL10NKey + "_S1"][0],
-                            _audioARSClips[$"NUM_{now.Hour}"][0], _audioARSClips["O_CLOCK"][0],
-                            _audioARSClips[$"NUM_{now.Minute}"][0], _audioARSClips["MINUTE"][0],
-                            _audioARSClips[$"NUM_{_reservedDateTime.Hour}"][0], _audioARSClips["O_CLOCK"][0],
-                            _audioARSClips[$"NUM_{_reservedDateTime.Minute}"][0], _audioARSClips["MINUTE"][0],
-                            _audioARSClips[CID.HOTLINE_RESERVE.AudioL10NKey + "_S2"][0],
-                        };
+          case NodeTransferConditionType.Always:
+          case NodeTransferConditionType.NumberSequence:
+            _nextNode = transfer.ToNode;
+            return;
+          case NodeTransferConditionType.SinglePressed:
+            if (pressedButtons == null || pressedButtons.Length == 0)
+              continue;
+            if (transfer.Condition.Value == null || transfer.Condition.Value.Length == 0)
+              continue;
+            if (transfer.Condition.Value.Contains(pressedButtons[0]))
+            {
+              _nextNode = transfer.ToNode;
+              return;
+            }
             break;
+          case NodeTransferConditionType.None:
           default:
-            _currentQueuedARSClips = new AudioClip[] {
-                            _audioARSClips[CID.HOTLINE_RESERVE.AudioL10NKey + "_S1"][0],
-                            _audioARSClips[$"NUM_{now.Hour}"][0], _audioARSClips[$"NUM_{now.Minute}"][0], _audioARSClips["MINUTE"][0],
-                            _audioARSClips[CID.HOTLINE_RESERVE.AudioL10NKey + "_S2"][0],
-                            _audioARSClips[$"NUM_{_reservedDateTime.Hour}"][0], _audioARSClips[$"NUM_{_reservedDateTime.Minute}"][0], _audioARSClips["MINUTE"][0],
-                        };
             break;
         }
       }
-            // 4. 저속 탄도 미사일 코드 안내
-            else if (_currentNode.Id == CID.POWER_CODE_LOW.Id)
-            {
-                AssembleCodeClips(CID.POWER_CODE_LOW.AudioL10NKey, _powerCodeLowPart);
-            }
-            // 5. 고속 탄도 미사일 코드 안내
-            else if (_currentNode.Id == CID.POWER_CODE_HIGH.Id)
-            {
-                AssembleCodeClips(CID.POWER_CODE_HIGH.AudioL10NKey, _powerCodeHighPart);
-            }
-            // 6. X0 요격 방식 코드 안내
-            else if (_currentNode.Id == CID.INTERCEPT_CODE_X0.Id)
-            {
-                AssembleCodeClips(CID.INTERCEPT_CODE_X0.AudioL10NKey, _interceptCodeX0Part);
-            }
-            // 7. Y0 요격 방식 코드 안내
-            else if (_currentNode.Id == CID.INTERCEPT_CODE_Y0.Id)
-            {
-                AssembleCodeClips(CID.INTERCEPT_CODE_Y0.AudioL10NKey, _interceptCodeY0Part);
-            }
-            // 8. 군사 코드 확인
-            else if (_currentNode.Id == CID.MIL_CODE_CONFIRM_1.Id)
-            {
-                _currentQueuedARSClips = new AudioClip[] {
-                    _audioARSClips[CID.MIL_CODE_CONFIRM_1.AudioL10NKey + "_S1"][0],
-                    _audioARSClips[_selectedActionDescId][0],
-                    _audioARSClips[CID.MIL_CODE_CONFIRM_1.AudioL10NKey + "_S2"][0],
-                };
-            }
-            // 9. 상담원 연결 정보
-            else if (_currentNode.Id == CID.OPERATOR_CONNECT.Id)
-            {
-                _currentQueuedARSClips = new AudioClip[] {
-                    _audioARSClips[CID.OPERATOR_CONNECT.AudioL10NKey + "_S1"][0],
-                    _audioARSClips[$"NUM_{_waitNum}"][0],
-                    _audioARSClips[CID.OPERATOR_CONNECT.AudioL10NKey + "_S2"][0],
-                    _audioARSClips[$"NUM_{_waitMin}"][0],
-                    _audioARSClips[CID.OPERATOR_CONNECT.AudioL10NKey + "_S3"][0],
-                };
-            }
-            // 10. 봇 확인
-            else if (_currentNode.Id == CID.BOT_CHECK_REQ.Id)
-            {
-                _currentQueuedARSClips = new AudioClip[] {
-                    _audioARSClips[CID.BOT_CHECK_REQ.AudioL10NKey + "_S1"][0],
-                    _audioARSClips[$"NUM_{_botCode}"][0],
-                };
-            }
-            // 11. 코드 발급 완료
-            else if (_currentNode.Id == CID.CODE_ISSUE_SUCC.Id)
-            {
-              int code = UnityEngine.Random.Range(0, 9999);
-              _newIssuedCode = code.ToString("D4");
-              _currentQueuedARSClips = new AudioClip[] {
-                _audioARSClips[CID.CODE_ISSUE_SUCC.AudioL10NKey + "_S1"][0],
-                _audioARSClips[$"NUM_{_newIssuedCode[0]}"][0],
-                _audioARSClips[$"NUM_{_newIssuedCode[1]}"][0],
-                _audioARSClips[$"NUM_{_newIssuedCode[2]}"][0],
-                _audioARSClips[$"NUM_{_newIssuedCode[3]}"][0],
-              };
-            }
-        }
+    }
 
-        void AssembleCodeClips(string baseKey, string codeValue)
-        {
-            if (_localeCode == "en")
-            {
-                _currentQueuedARSClips = new AudioClip[] {
-                    _audioARSClips[baseKey + "_S1"][0],
-                    _audioARSClips[$"NUM_{codeValue}"][0],
-                };
-            }
-            else
-            {
-                _currentQueuedARSClips = new AudioClip[] {
-                    _audioARSClips[baseKey + "_S1"][0],
-                    _audioARSClips[$"NUM_{codeValue}"][0],
-                    _audioARSClips[baseKey + "_S2"][0],
-                };
-            }
-        }
+    void EnsureCurrentNodeInitialized()
+    {
+      if (string.IsNullOrEmpty(_currentNode.Id))
+      {
+        _currentNode = CID.CALLING_START;
+        ReadyCurrentARS();
+      }
+    }
+
+    void ApplyNodeTransitionIfReady()
+    {
+      if (string.IsNullOrEmpty(_nextNode.Id))
+        return;
+
+      _currentNode = _nextNode;
+      _nextNode = default;
+      _numberSequenceBuffer.Clear();
+      ReadyCurrentARS();
+    }
+
+    void ApplyAlwaysTransitionsIfNeeded()
+    {
+      int guard = 0;
+      while (HasTransferCondition(NodeTransferConditionType.Always) && guard < 5)
+      {
+        ProcessCurrentARSResponse(NodeTransferConditionType.Always);
+        if (string.IsNullOrEmpty(_nextNode.Id))
+          break;
+        ApplyNodeTransitionIfReady();
+        guard++;
+      }
+    }
+
+    bool HasTransferCondition(NodeTransferConditionType conditionType)
+    {
+      if (_currentNode.Transfers == null)
+        return false;
+
+      for (int i = 0; i < _currentNode.Transfers.Length; i++)
+      {
+        if (_currentNode.Transfers[i].Condition.Condition == conditionType)
+          return true;
+      }
+      return false;
+    }
+
+    bool IsNumberButton(TelephoneButtonType buttonType)
+    {
+      switch (buttonType)
+      {
+        case TelephoneButtonType.Number0:
+        case TelephoneButtonType.Number1:
+        case TelephoneButtonType.Number2:
+        case TelephoneButtonType.Number3:
+        case TelephoneButtonType.Number4:
+        case TelephoneButtonType.Number5:
+        case TelephoneButtonType.Number6:
+        case TelephoneButtonType.Number7:
+        case TelephoneButtonType.Number8:
+        case TelephoneButtonType.Number9:
+          return true;
+        default:
+          return false;
+      }
+    }
   }
 }

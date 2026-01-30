@@ -8,9 +8,9 @@ namespace GamePlay.CallingInteraction
     None,
     Always,
     SinglePressed,
+    Custom,
 
     // When Number Sequence, detecting number button pressed would be ignored.
     NumberSequence,
-    Custom,
   }
 }
