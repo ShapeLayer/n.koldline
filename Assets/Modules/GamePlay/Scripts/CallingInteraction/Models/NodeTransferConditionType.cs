@@ -6,7 +6,11 @@ namespace GamePlay.CallingInteraction
   public enum NodeTransferConditionType
   {
     None,
-    SingleNumber,
+    Always,
+    SinglePressed,
+
+    // When Number Sequence, detecting number button pressed would be ignored.
     NumberSequence,
+    Custom,
   }
 }

@@ -1,0 +1,257 @@
+ID,Name
+USA,United States (Mainland)
+US_VIRGIN_ISLANDS,United States Virgin Islands
+NORTHERN_MARIANA_ISLANDS,Northern Mariana Islands
+GUAM,Guam
+AMERICAN_SAMOA,American Samoa
+PUERTO_RICO,Puerto Rico
+CANADA,Canada
+BERMUDA,Bermuda
+ANGUILLA,Anguilla
+BRITISH_VIRGIN_ISLANDS,British Virgin Islands
+CAYMAN_ISLANDS,Cayman Islands
+TURKS_AND_CAICOS_ISLANDS,Turks and Caicos Islands
+MONTSERRAT,Montserrat
+BAHAMAS,Bahamas
+BARBADOS,Barbados
+ANTIGUA_AND_BARBUDA,Antigua and Barbuda
+GRENADA,Grenada
+SINT_MAARTEN,Sint Maarten (Dutch part)
+SAINT_LUCIA,Saint Lucia
+DOMINICA,Dominica
+SAINT_VINCENT_AND_THE_GRENADINES,Saint Vincent and the Grenadines
+TRINIDAD_AND_TOBAGO,Trinidad and Tobago
+SAINT_KITTS_AND_NEVIS,Saint Kitts and Nevis
+JAMAICA,Jamaica
+DOMINICAN_REPUBLIC,Dominican Republic
+EGYPT,Egypt
+SOUTH_SUDAN,South Sudan
+MOROCCO,Morocco
+WESTERN_SAHARA,Western Sahara
+ALGERIA,Algeria
+TUNISIA,Tunisia
+LIBYA,Libya
+GAMBIA,Gambia
+SENEGAL,Senegal
+MAURITANIA,Mauritania
+MALI,Mali
+GUINEA,Guinea
+IVORY_COAST,Ivory Coast (Côte d'Ivoire)
+BURKINA_FASO,Burkina Faso
+NIGER,Niger
+TOGO,Togo
+BENIN,Benin
+MAURITIUS,Mauritius
+LIBERIA,Liberia
+SIERRA_LEONE,Sierra Leone
+GHANA,Ghana
+NIGERIA,Nigeria
+CHAD,Chad
+CENTRAL_AFRICAN_REPUBLIC,Central African Republic
+CAMEROON,Cameroon
+CAPE_VERDE,Cape Verde
+SAO_TOME_AND_PRINCIPE,Sao Tome and Principe
+EQUATORIAL_GUINEA,Equatorial Guinea
+GABON,Gabon
+REPUBLIC_OF_THE_CONGO,Republic of the Congo
+DR_CONGO,Democratic Republic of the Congo
+ANGOLA,Angola
+GUINEA_BISSAU,Guinea-Bissau
+BRITISH_INDIAN_OCEAN_TERRITORY,British Indian Ocean Territory
+ASCENSION_ISLAND,Ascension Island
+SEYCHELLES,Seychelles
+SUDAN,Sudan
+RWANDA,Rwanda
+ETHIOPIA,Ethiopia
+SOMALIA,Somalia
+SOMALILAND,Somaliland
+DJIBOUTI,Djibouti
+KENYA,Kenya
+TANZANIA,Tanzania
+UGANDA,Uganda
+BURUNDI,Burundi
+MOZAMBIQUE,Mozambique
+ZAMBIA,Zambia
+MADAGASCAR,Madagascar
+REUNION,Réunion
+MAYOTTE,Mayotte
+ZIMBABWE,Zimbabwe
+NAMIBIA,Namibia
+MALAWI,Malawi
+LESOTHO,Lesotho
+BOTSWANA,Botswana
+ESWATINI,Eswatini
+COMOROS,Comoros
+SOUTH_AFRICA,South Africa
+SAINT_HELENA,Saint Helena
+TRISTAN_DA_CUNHA,Tristan da Cunha
+ERITREA,Eritrea
+ARUBA,Aruba
+FAROE_ISLANDS,Faroe Islands
+GREENLAND,Greenland
+GREECE,Greece
+NETHERLANDS,Netherlands
+BELGIUM,Belgium
+FRANCE,France
+SPAIN,Spain
+GIBRALTAR,Gibraltar
+PORTUGAL,Portugal
+LUXEMBOURG,Luxembourg
+IRELAND,Ireland
+ICELAND,Iceland
+ALBANIA,Albania
+MALTA,Malta
+CYPRUS,Cyprus
+FINLAND,Finland
+ALAND_ISLANDS,Åland Islands
+BULGARIA,Bulgaria
+HUNGARY,Hungary
+LITHUANIA,Lithuania
+LATVIA,Latvia
+ESTONIA,Estonia
+MOLDOVA,Moldova
+TRANSNISTRIA,Transnistria
+ARMENIA,Armenia
+BELARUS,Belarus
+ANDORRA,Andorra
+MONACO,Monaco
+SAN_MARINO,San Marino
+UKRAINE,Ukraine
+SERBIA,Serbia
+MONTENEGRO,Montenegro
+KOSOVO,Kosovo
+CROATIA,Croatia
+SLOVENIA,Slovenia
+BOSNIA_AND_HERZEGOVINA,Bosnia and Herzegovina
+NORTH_MACEDONIA,North Macedonia
+ITALY,Italy
+VATICAN_CITY,Vatican City
+ROMANIA,Romania
+SWITZERLAND,Switzerland
+CZECH_REPUBLIC,Czech Republic
+SLOVAKIA,Slovakia
+LIECHTENSTEIN,Liechtenstein
+AUSTRIA,Austria
+UNITED_KINGDOM,United Kingdom
+GUERNSEY,Guernsey
+JERSEY,Jersey
+ISLE_OF_MAN,Isle of Man
+DENMARK,Denmark
+SWEDEN,Sweden
+NORWAY,Norway
+SVALBARD,Svalbard
+JAN_MAYEN,Jan Mayen
+POLAND,Poland
+GERMANY,Germany
+FALKLAND_ISLANDS,Falkland Islands
+SOUTH_GEORGIA_AND_SOUTH_SANDWICH_ISLANDS,South Georgia and the South Sandwich Islands
+BELIZE,Belize
+GUATEMALA,Guatemala
+EL_SALVADOR,El Salvador
+HONDURAS,Honduras
+NICARAGUA,Nicaragua
+COSTA_RICA,Costa Rica
+PANAMA,Panama
+SAINT_PIERRE_AND_MIQUELON,Saint Pierre and Miquelon
+HAITI,Haiti
+PERU,Peru
+MEXICO,Mexico
+CUBA,Cuba
+ARGENTINA,Argentina
+BRAZIL,Brazil
+CHILE,Chile
+COLOMBIA,Colombia
+VENEZUELA,Venezuela
+GUADELOUPE,Guadeloupe
+SAINT_MARTIN,Saint Martin
+SAINT_BARTHELEMY,Saint Barthélemy
+BOLIVIA,Bolivia
+GUYANA,Guyana
+ECUADOR,Ecuador
+FRENCH_GUIANA,French Guiana
+PARAGUAY,Paraguay
+MARTINIQUE,Martinique
+SURINAME,Suriname
+URUGUAY,Uruguay
+SINT_EUSTATIUS,Sint Eustatius
+SABA,Saba
+BONAIRE,Bonaire
+CURACAO,Curaçao
+MALAYSIA,Malaysia
+AUSTRALIA,Australia
+COCOS_ISLANDS,Cocos (Keeling) Islands
+CHRISTMAS_ISLAND,Christmas Island
+INDONESIA,Indonesia
+PHILIPPINES,Philippines
+NEW_ZEALAND,New Zealand
+PITCAIRN_ISLANDS,Pitcairn Islands
+SINGAPORE,Singapore
+THAILAND,Thailand
+EAST_TIMOR,East Timor
+AUSTRALIAN_ANTARCTIC_TERRITORY,Australian Antarctic Territory
+NORFOLK_ISLAND,Norfolk Island
+BRUNEI,Brunei
+NAURU,Nauru
+PAPUA_NEW_GUINEA,Papua New Guinea
+TONGA,Tonga
+SOLOMON_ISLANDS,Solomon Islands
+VANUATU,Vanuatu
+FIJI,Fiji
+PALAU,Palau
+WALLIS_AND_FUTUNA,Wallis and Futuna
+COOK_ISLANDS,Cook Islands
+NIUE,Niue
+SAMOA,Samoa
+KIRIBATI,Kiribati
+NEW_CALEDONIA,New Caledonia
+TUVALU,Tuvalu
+FRENCH_POLYNESIA,French Polynesia
+TOKELAU,Tokelau
+MICRONESIA,Micronesia
+MARSHALL_ISLANDS,Marshall Islands
+RUSSIA,Russia
+KAZAKHSTAN,Kazakhstan
+ABKHAZIA,Abkhazia
+SOUTH_OSSETIA,South Ossetia
+JAPAN,Japan
+SOUTH_KOREA,South Korea
+VIETNAM,Vietnam
+NORTH_KOREA,North Korea
+HONG_KONG,Hong Kong
+MACAU,Macau
+CAMBODIA,Cambodia
+LAOS,Laos
+CHINA,China
+BANGLADESH,Bangladesh
+TAIWAN,Taiwan
+TURKEY,Turkey
+NORTHERN_CYPRUS,Northern Cyprus
+INDIA,India
+PAKISTAN,Pakistan
+AFGHANISTAN,Afghanistan
+SRI_LANKA,Sri Lanka
+MYANMAR,Myanmar
+MALDIVES,Maldives
+LEBANON,Lebanon
+JORDAN,Jordan
+SYRIA,Syria
+IRAQ,Iraq
+KUWAIT,Kuwait
+SAUDI_ARABIA,Saudi Arabia
+YEMEN,Yemen
+OMAN,Oman
+PALESTINE,Palestine
+UAE,United Arab Emirates
+ISRAEL,Israel
+BAHRAIN,Bahrain
+QATAR,Qatar
+BHUTAN,Bhutan
+MONGOLIA,Mongolia
+NEPAL,Nepal
+IRAN,Iran
+TAJIKISTAN,Tajikistan
+TURKMENISTAN,Turkmenistan
+AZERBAIJAN,Azerbaijan
+GEORGIA,Georgia
+KYRGYZSTAN,Kyrgyzstan
+UZBEKISTAN,Uzbekistan

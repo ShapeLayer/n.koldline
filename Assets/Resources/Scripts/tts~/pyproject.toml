@@ -1,0 +1,32 @@
+[project]
+name = "tts"
+version = "0.1.0"
+description = "Add your description here"
+authors = [
+    { name = "Jonghyeon Park", email = "shapelayer.dev@gmail.com" }
+]
+dependencies = [
+    "gTTS>=2.3.0",
+    "edge-tts>=1.0.0",
+    "azure-cognitiveservices-speech==1.47.0",
+]
+readme = "README.md"
+requires-python = ">= 3.8"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = []
+
+[tool.rye.scripts]
+ttsgen = "python -m tts.bin"
+ttscsvgen = "python -m ext.bin_csv"
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/tts", "src/ext"]

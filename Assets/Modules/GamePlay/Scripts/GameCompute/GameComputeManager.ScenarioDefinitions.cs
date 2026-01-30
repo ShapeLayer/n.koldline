@@ -68,6 +68,66 @@ namespace GamePlay.GameCompute
       // Start Timer
       StartTimeLimitCountdown();
     }
+
+    public async Task InvokeScenarioBadEnding()
+    {
+      await Task.WhenAll(
+        _mainCameraController.PlayAudioOneShotAsync(_audioIntroStab),
+        _title.InstantShowAsync(L10nCollections.Q(L10N_KEY_GAME_ENDING_BAD_1), 3f)
+      );
+      await Task.WhenAll(
+        _mainCameraController.PlayAudioOneShotAsync(_audioIntroStab),
+        _title.InstantShowAsync(L10nCollections.Q(L10N_KEY_GAME_ENDING_BAD_2), 3f)
+      );
+      await Task.WhenAll(
+        _mainCameraController.PlayAudioOneShotAsync(_audioIntroStab),
+        _title.InstantShowAsync(L10nCollections.Q(L10N_KEY_GAME_ENDING_BAD_3), 3f)
+      );
+      await Task.WhenAll(
+        _mainCameraController.PlayAudioOneShotAsync(_audioIntroStab),
+        _title.InstantShowAsync(L10nCollections.Q(L10N_KEY_GAME_ENDING_BAD_4), 3f)
+      );
+      await Task.WhenAll(
+        _mainCameraController.PlayAudioOneShotAsync(_audioIntroStab),
+        _title.InstantShowAsync(L10nCollections.Q(L10N_KEY_GAME_ENDING_BAD_5), 3f)
+      );
+      await Task.WhenAll(
+        _mainCameraController.PlayAudioOneShotAsync(_audioIntroStab),
+        _title.InstantShowAsync(L10nCollections.Q(L10N_KEY_GAME_ENDING_BAD_6), 3f)
+      );
+      await Task.WhenAll(
+        _mainCameraController.PlayAudioOneShotAsync(_audioIntroStab),
+        _title.InstantShowAsync(L10nCollections.Q(L10N_KEY_GAME_ENDING_BAD_7), 3f)
+      );
+    }
+
+    public async Task InvokeScenarioGoodEnding()
+    {
+      await Task.WhenAll(
+        _mainCameraController.PlayAudioOneShotAsync(_audioIntroStab),
+        _title.InstantShowAsync(L10nCollections.Q(L10N_KEY_GAME_ENDING_GOOD_1), 3f)
+      );
+      await Task.WhenAll(
+        _mainCameraController.PlayAudioOneShotAsync(_audioIntroStab),
+        _title.InstantShowAsync(L10nCollections.Q(L10N_KEY_GAME_ENDING_GOOD_2), 3f)
+      );
+      await Task.WhenAll(
+        _mainCameraController.PlayAudioOneShotAsync(_audioIntroStab),
+        _title.InstantShowAsync(L10nCollections.Q(L10N_KEY_GAME_ENDING_GOOD_3), 3f)
+      );
+      await Task.WhenAll(
+        _mainCameraController.PlayAudioOneShotAsync(_audioIntroStab),
+        _title.InstantShowAsync(L10nCollections.Q(L10N_KEY_GAME_ENDING_GOOD_4), 3f)
+      );
+      await Task.WhenAll(
+        _mainCameraController.PlayAudioOneShotAsync(_audioIntroStab),
+        _title.InstantShowAsync(L10nCollections.Q(L10N_KEY_GAME_ENDING_GOOD_5), 3f)
+      );
+      await Task.WhenAll(
+        _mainCameraController.PlayAudioOneShotAsync(_audioIntroStab),
+        _title.InstantShowAsync(L10nCollections.Q(L10N_KEY_GAME_ENDING_GOOD_6), 3f)
+      );
+    }
     
     async Task DoDelayAfter(Action fn, float delaySeconds)
     {

@@ -6,7 +6,12 @@ namespace GamePlay.CallingInteraction
   public struct ResponseNode
   {
     public string Id;
-    public string Content;
+    public string Description;
+    public bool SuppressNavigationHint;
+    public string CustomContentId;
+    public string ContentL10NKey;
+    public string AudioL10NKey;
+    public bool IsContentFormattingRequired;
     public NodeTransfer[] Transfers;
   }
 }

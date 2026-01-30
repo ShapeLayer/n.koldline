@@ -6,6 +6,7 @@ using Infrastructure.UIStack;
 
 namespace GamePlay.IngameObject
 {
+  [RequireComponent(typeof(AudioSource))]
   public class TelephoneController : InteractableObjectABC
   {
     public const string L10N_KEY_DISPLAYNAME = "ITEM_TELEPHONE";
@@ -14,6 +15,8 @@ namespace GamePlay.IngameObject
     public override Color DisplayColor => Color.white;
     private bool _isInteractable = true;
     public override bool IsInteractable => _isInteractable;
+    AudioSource _audioSource;
+    public AudioSource AudioSrc => _audioSource;
 
     [Header("References")]
     [SerializeField] private TelephoneUIController _telephoneUIController;
@@ -21,6 +24,7 @@ namespace GamePlay.IngameObject
     void Awake()
     {
       _telephoneUIController = FindFirstObjectByType<TelephoneUIController>();
+      _audioSource = GetComponent<AudioSource>();
     }
 
     public override void Interact(Transform interactor)

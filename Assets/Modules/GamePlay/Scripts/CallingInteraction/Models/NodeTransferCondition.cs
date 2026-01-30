@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 namespace GamePlay.CallingInteraction
 {
@@ -7,6 +6,7 @@ namespace GamePlay.CallingInteraction
   public struct NodeTransferCondition
   {
     public NodeTransferConditionType Condition;
-    public int[] Value;
+    public string CustomConditionId;
+    public TelephoneButtonType[] Value;
   }
 }

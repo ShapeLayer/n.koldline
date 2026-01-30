@@ -6,6 +6,6 @@ namespace GamePlay.CallingInteraction
   public struct NodeTransfer
   {
     public NodeTransferCondition Condition;
-    public string ToNodeId;
+    public ResponseNode ToNode;
   }
 }
