@@ -6,6 +6,6 @@ namespace GamePlay.CallingInteraction
   public struct NodeTransfer
   {
     public NodeTransferCondition Condition;
-    public ResponseNode ToNode;
+    [NonSerialized] public ResponseNode ToNode;
   }
 }

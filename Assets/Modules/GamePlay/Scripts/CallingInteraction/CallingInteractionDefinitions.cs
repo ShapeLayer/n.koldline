@@ -2,6 +2,523 @@ namespace GamePlay.CallingInteraction
 {
   public static class CallingInteractionDefinitions
   {
+    public const string USA = "USA";
+    public const string US_VIRGIN_ISLANDS = "US_VIRGIN_ISLANDS";
+    public const string NORTHERN_MARIANA_ISLANDS = "NORTHERN_MARIANA_ISLANDS";
+    public const string GUAM = "GUAM";
+    public const string AMERICAN_SAMOA = "AMERICAN_SAMOA";
+    public const string PUERTO_RICO = "PUERTO_RICO";
+    public const string CANADA = "CANADA";
+    public const string BERMUDA = "BERMUDA";
+    public const string ANGUILLA = "ANGUILLA";
+    public const string BRITISH_VIRGIN_ISLANDS = "BRITISH_VIRGIN_ISLANDS";
+    public const string CAYMAN_ISLANDS = "CAYMAN_ISLANDS";
+    public const string TURKS_AND_CAICOS_ISLANDS = "TURKS_AND_CAICOS_ISLANDS";
+    public const string MONTSERRAT = "MONTSERRAT";
+    public const string BAHAMAS = "BAHAMAS";
+    public const string BARBADOS = "BARBADOS";
+    public const string ANTIGUA_AND_BARBUDA = "ANTIGUA_AND_BARBUDA";
+    public const string GRENADA = "GRENADA";
+    public const string SINT_MAARTEN = "SINT_MAARTEN";
+    public const string SAINT_LUCIA = "SAINT_LUCIA";
+    public const string DOMINICA = "DOMINICA";
+    public const string SAINT_VINCENT_AND_THE_GRENADINES = "SAINT_VINCENT_AND_THE_GRENADINES";
+    public const string TRINIDAD_AND_TOBAGO = "TRINIDAD_AND_TOBAGO";
+    public const string SAINT_KITTS_AND_NEVIS = "SAINT_KITTS_AND_NEVIS";
+    public const string JAMAICA = "JAMAICA";
+    public const string DOMINICAN_REPUBLIC = "DOMINICAN_REPUBLIC";
+    public const string EGYPT = "EGYPT";
+    public const string SOUTH_SUDAN = "SOUTH_SUDAN";
+    public const string MOROCCO = "MOROCCO";
+    public const string WESTERN_SAHARA = "WESTERN_SAHARA";
+    public const string ALGERIA = "ALGERIA";
+    public const string TUNISIA = "TUNISIA";
+    public const string LIBYA = "LIBYA";
+    public const string GAMBIA = "GAMBIA";
+    public const string SENEGAL = "SENEGAL";
+    public const string MAURITANIA = "MAURITANIA";
+    public const string MALI = "MALI";
+    public const string GUINEA = "GUINEA";
+    public const string IVORY_COAST = "IVORY_COAST";
+    public const string BURKINA_FASO = "BURKINA_FASO";
+    public const string NIGER = "NIGER";
+    public const string TOGO = "TOGO";
+    public const string BENIN = "BENIN";
+    public const string MAURITIUS = "MAURITIUS";
+    public const string LIBERIA = "LIBERIA";
+    public const string SIERRA_LEONE = "SIERRA_LEONE";
+    public const string GHANA = "GHANA";
+    public const string NIGERIA = "NIGERIA";
+    public const string CHAD = "CHAD";
+    public const string CENTRAL_AFRICAN_REPUBLIC = "CENTRAL_AFRICAN_REPUBLIC";
+    public const string CAMEROON = "CAMEROON";
+    public const string CAPE_VERDE = "CAPE_VERDE";
+    public const string SAO_TOME_AND_PRINCIPE = "SAO_TOME_AND_PRINCIPE";
+    public const string EQUATORIAL_GUINEA = "EQUATORIAL_GUINEA";
+    public const string GABON = "GABON";
+    public const string REPUBLIC_OF_THE_CONGO = "REPUBLIC_OF_THE_CONGO";
+    public const string DR_CONGO = "DR_CONGO";
+    public const string ANGOLA = "ANGOLA";
+    public const string GUINEA_BISSAU = "GUINEA_BISSAU";
+    public const string BRITISH_INDIAN_OCEAN_TERRITORY = "BRITISH_INDIAN_OCEAN_TERRITORY";
+    public const string ASCENSION_ISLAND = "ASCENSION_ISLAND";
+    public const string SEYCHELLES = "SEYCHELLES";
+    public const string SUDAN = "SUDAN";
+    public const string RWANDA = "RWANDA";
+    public const string ETHIOPIA = "ETHIOPIA";
+    public const string SOMALIA = "SOMALIA";
+    public const string SOMALILAND = "SOMALILAND";
+    public const string DJIBOUTI = "DJIBOUTI";
+    public const string KENYA = "KENYA";
+    public const string TANZANIA = "TANZANIA";
+    public const string UGANDA = "UGANDA";
+    public const string BURUNDI = "BURUNDI";
+    public const string MOZAMBIQUE = "MOZAMBIQUE";
+    public const string ZAMBIA = "ZAMBIA";
+    public const string MADAGASCAR = "MADAGASCAR";
+    public const string REUNION = "REUNION";
+    public const string MAYOTTE = "MAYOTTE";
+    public const string ZIMBABWE = "ZIMBABWE";
+    public const string NAMIBIA = "NAMIBIA";
+    public const string MALAWI = "MALAWI";
+    public const string LESOTHO = "LESOTHO";
+    public const string BOTSWANA = "BOTSWANA";
+    public const string ESWATINI = "ESWATINI";
+    public const string COMOROS = "COMOROS";
+    public const string SOUTH_AFRICA = "SOUTH_AFRICA";
+    public const string SAINT_HELENA = "SAINT_HELENA";
+    public const string TRISTAN_DA_CUNHA = "TRISTAN_DA_CUNHA";
+    public const string ERITREA = "ERITREA";
+    public const string ARUBA = "ARUBA";
+    public const string FAROE_ISLANDS = "FAROE_ISLANDS";
+    public const string GREENLAND = "GREENLAND";
+    public const string GREECE = "GREECE";
+    public const string NETHERLANDS = "NETHERLANDS";
+    public const string BELGIUM = "BELGIUM";
+    public const string FRANCE = "FRANCE";
+    public const string SPAIN = "SPAIN";
+    public const string GIBRALTAR = "GIBRALTAR";
+    public const string PORTUGAL = "PORTUGAL";
+    public const string LUXEMBOURG = "LUXEMBOURG";
+    public const string IRELAND = "IRELAND";
+    public const string ICELAND = "ICELAND";
+    public const string ALBANIA = "ALBANIA";
+    public const string MALTA = "MALTA";
+    public const string CYPRUS = "CYPRUS";
+    public const string FINLAND = "FINLAND";
+    public const string ALAND_ISLANDS = "ALAND_ISLANDS";
+    public const string BULGARIA = "BULGARIA";
+    public const string HUNGARY = "HUNGARY";
+    public const string LITHUANIA = "LITHUANIA";
+    public const string LATVIA = "LATVIA";
+    public const string ESTONIA = "ESTONIA";
+    public const string MOLDOVA = "MOLDOVA";
+    public const string TRANSNISTRIA = "TRANSNISTRIA";
+    public const string ARMENIA = "ARMENIA";
+    public const string BELARUS = "BELARUS";
+    public const string ANDORRA = "ANDORRA";
+    public const string MONACO = "MONACO";
+    public const string SAN_MARINO = "SAN_MARINO";
+    public const string UKRAINE = "UKRAINE";
+    public const string SERBIA = "SERBIA";
+    public const string MONTENEGRO = "MONTENEGRO";
+    public const string KOSOVO = "KOSOVO";
+    public const string CROATIA = "CROATIA";
+    public const string SLOVENIA = "SLOVENIA";
+    public const string BOSNIA_AND_HERZEGOVINA = "BOSNIA_AND_HERZEGOVINA";
+    public const string NORTH_MACEDONIA = "NORTH_MACEDONIA";
+    public const string ITALY = "ITALY";
+    public const string VATICAN_CITY = "VATICAN_CITY";
+    public const string ROMANIA = "ROMANIA";
+    public const string SWITZERLAND = "SWITZERLAND";
+    public const string CZECH_REPUBLIC = "CZECH_REPUBLIC";
+    public const string SLOVAKIA = "SLOVAKIA";
+    public const string LIECHTENSTEIN = "LIECHTENSTEIN";
+    public const string AUSTRIA = "AUSTRIA";
+    public const string UNITED_KINGDOM = "UNITED_KINGDOM";
+    public const string GUERNSEY = "GUERNSEY";
+    public const string JERSEY = "JERSEY";
+    public const string ISLE_OF_MAN = "ISLE_OF_MAN";
+    public const string DENMARK = "DENMARK";
+    public const string SWEDEN = "SWEDEN";
+    public const string NORWAY = "NORWAY";
+    public const string SVALBARD = "SVALBARD";
+    public const string JAN_MAYEN = "JAN_MAYEN";
+    public const string POLAND = "POLAND";
+    public const string GERMANY = "GERMANY";
+    public const string FALKLAND_ISLANDS = "FALKLAND_ISLANDS";
+    public const string SOUTH_GEORGIA_AND_SOUTH_SANDWICH_ISLANDS = "SOUTH_GEORGIA_AND_SOUTH_SANDWICH_ISLANDS";
+    public const string BELIZE = "BELIZE";
+    public const string GUATEMALA = "GUATEMALA";
+    public const string EL_SALVADOR = "EL_SALVADOR";
+    public const string HONDURAS = "HONDURAS";
+    public const string NICARAGUA = "NICARAGUA";
+    public const string COSTA_RICA = "COSTA_RICA";
+    public const string PANAMA = "PANAMA";
+    public const string SAINT_PIERRE_AND_MIQUELON = "SAINT_PIERRE_AND_MIQUELON";
+    public const string HAITI = "HAITI";
+    public const string PERU = "PERU";
+    public const string MEXICO = "MEXICO";
+    public const string CUBA = "CUBA";
+    public const string ARGENTINA = "ARGENTINA";
+    public const string BRAZIL = "BRAZIL";
+    public const string CHILE = "CHILE";
+    public const string COLOMBIA = "COLOMBIA";
+    public const string VENEZUELA = "VENEZUELA";
+    public const string GUADELOUPE = "GUADELOUPE";
+    public const string SAINT_MARTIN = "SAINT_MARTIN";
+    public const string SAINT_BARTHELEMY = "SAINT_BARTHELEMY";
+    public const string BOLIVIA = "BOLIVIA";
+    public const string GUYANA = "GUYANA";
+    public const string ECUADOR = "ECUADOR";
+    public const string FRENCH_GUIANA = "FRENCH_GUIANA";
+    public const string PARAGUAY = "PARAGUAY";
+    public const string MARTINIQUE = "MARTINIQUE";
+    public const string SURINAME = "SURINAME";
+    public const string URUGUAY = "URUGUAY";
+    public const string SINT_EUSTATIUS = "SINT_EUSTATIUS";
+    public const string SABA = "SABA";
+    public const string BONAIRE = "BONAIRE";
+    public const string CURACAO = "CURACAO";
+    public const string MALAYSIA = "MALAYSIA";
+    public const string AUSTRALIA = "AUSTRALIA";
+    public const string COCOS_ISLANDS = "COCOS_ISLANDS";
+    public const string CHRISTMAS_ISLAND = "CHRISTMAS_ISLAND";
+    public const string INDONESIA = "INDONESIA";
+    public const string PHILIPPINES = "PHILIPPINES";
+    public const string NEW_ZEALAND = "NEW_ZEALAND";
+    public const string PITCAIRN_ISLANDS = "PITCAIRN_ISLANDS";
+    public const string SINGAPORE = "SINGAPORE";
+    public const string THAILAND = "THAILAND";
+    public const string EAST_TIMOR = "EAST_TIMOR";
+    public const string AUSTRALIAN_ANTARCTIC_TERRITORY = "AUSTRALIAN_ANTARCTIC_TERRITORY";
+    public const string NORFOLK_ISLAND = "NORFOLK_ISLAND";
+    public const string BRUNEI = "BRUNEI";
+    public const string NAURU = "NAURU";
+    public const string PAPUA_NEW_GUINEA = "PAPUA_NEW_GUINEA";
+    public const string TONGA = "TONGA";
+    public const string SOLOMON_ISLANDS = "SOLOMON_ISLANDS";
+    public const string VANUATU = "VANUATU";
+    public const string FIJI = "FIJI";
+    public const string PALAU = "PALAU";
+    public const string WALLIS_AND_FUTUNA = "WALLIS_AND_FUTUNA";
+    public const string COOK_ISLANDS = "COOK_ISLANDS";
+    public const string NIUE = "NIUE";
+    public const string SAMOA = "SAMOA";
+    public const string KIRIBATI = "KIRIBATI";
+    public const string NEW_CALEDONIA = "NEW_CALEDONIA";
+    public const string TUVALU = "TUVALU";
+    public const string FRENCH_POLYNESIA = "FRENCH_POLYNESIA";
+    public const string TOKELAU = "TOKELAU";
+    public const string MICRONESIA = "MICRONESIA";
+    public const string MARSHALL_ISLANDS = "MARSHALL_ISLANDS";
+    public const string RUSSIA = "RUSSIA";
+    public const string KAZAKHSTAN = "KAZAKHSTAN";
+    public const string ABKHAZIA = "ABKHAZIA";
+    public const string SOUTH_OSSETIA = "SOUTH_OSSETIA";
+    public const string JAPAN = "JAPAN";
+    public const string SOUTH_KOREA = "SOUTH_KOREA";
+    public const string VIETNAM = "VIETNAM";
+    public const string NORTH_KOREA = "NORTH_KOREA";
+    public const string HONG_KONG = "HONG_KONG";
+    public const string MACAU = "MACAU";
+    public const string CAMBODIA = "CAMBODIA";
+    public const string LAOS = "LAOS";
+    public const string CHINA = "CHINA";
+    public const string BANGLADESH = "BANGLADESH";
+    public const string TAIWAN = "TAIWAN";
+    public const string TURKEY = "TURKEY";
+    public const string NORTHERN_CYPRUS = "NORTHERN_CYPRUS";
+    public const string INDIA = "INDIA";
+    public const string PAKISTAN = "PAKISTAN";
+    public const string AFGHANISTAN = "AFGHANISTAN";
+    public const string SRI_LANKA = "SRI_LANKA";
+    public const string MYANMAR = "MYANMAR";
+    public const string MALDIVES = "MALDIVES";
+    public const string LEBANON = "LEBANON";
+    public const string JORDAN = "JORDAN";
+    public const string SYRIA = "SYRIA";
+    public const string IRAQ = "IRAQ";
+    public const string KUWAIT = "KUWAIT";
+    public const string SAUDI_ARABIA = "SAUDI_ARABIA";
+    public const string YEMEN = "YEMEN";
+    public const string OMAN = "OMAN";
+    public const string PALESTINE = "PALESTINE";
+    public const string UAE = "UAE";
+    public const string ISRAEL = "ISRAEL";
+    public const string BAHRAIN = "BAHRAIN";
+    public const string QATAR = "QATAR";
+    public const string BHUTAN = "BHUTAN";
+    public const string MONGOLIA = "MONGOLIA";
+    public const string NEPAL = "NEPAL";
+    public const string IRAN = "IRAN";
+    public const string TAJIKISTAN = "TAJIKISTAN";
+    public const string TURKMENISTAN = "TURKMENISTAN";
+    public const string AZERBAIJAN = "AZERBAIJAN";
+    public const string GEORGIA = "GEORGIA";
+    public const string KYRGYZSTAN = "KYRGYZSTAN";
+    public const string UZBEKISTAN = "UZBEKISTAN";
+
+    public static string[] Nationalities = new string[]
+    {
+      USA,
+      US_VIRGIN_ISLANDS,
+      NORTHERN_MARIANA_ISLANDS,
+      GUAM,
+      AMERICAN_SAMOA,
+      PUERTO_RICO,
+      CANADA,
+      BERMUDA,
+      ANGUILLA,
+      BRITISH_VIRGIN_ISLANDS,
+      CAYMAN_ISLANDS,
+      TURKS_AND_CAICOS_ISLANDS,
+      MONTSERRAT,
+      BAHAMAS,
+      BARBADOS,
+      ANTIGUA_AND_BARBUDA,
+      GRENADA,
+      SINT_MAARTEN,
+      SAINT_LUCIA,
+      DOMINICA,
+      SAINT_VINCENT_AND_THE_GRENADINES,
+      TRINIDAD_AND_TOBAGO,
+      SAINT_KITTS_AND_NEVIS,
+      JAMAICA,
+      DOMINICAN_REPUBLIC,
+      EGYPT,
+      SOUTH_SUDAN,
+      MOROCCO,
+      WESTERN_SAHARA,
+      ALGERIA,
+      TUNISIA,
+      LIBYA,
+      GAMBIA,
+      SENEGAL,
+      MAURITANIA,
+      MALI,
+      GUINEA,
+      IVORY_COAST,
+      BURKINA_FASO,
+      NIGER,
+      TOGO,
+      BENIN,
+      MAURITIUS,
+      LIBERIA,
+      SIERRA_LEONE,
+      GHANA,
+      NIGERIA,
+      CHAD,
+      CENTRAL_AFRICAN_REPUBLIC,
+      CAMEROON,
+      CAPE_VERDE,
+      SAO_TOME_AND_PRINCIPE,
+      EQUATORIAL_GUINEA,
+      GABON,
+      REPUBLIC_OF_THE_CONGO,
+      DR_CONGO,
+      ANGOLA,
+      GUINEA_BISSAU,
+      BRITISH_INDIAN_OCEAN_TERRITORY,
+      ASCENSION_ISLAND,
+      SEYCHELLES,
+      SUDAN,
+      RWANDA,
+      ETHIOPIA,
+      SOMALIA,
+      SOMALILAND,
+      DJIBOUTI,
+      KENYA,
+      TANZANIA,
+      UGANDA,
+      BURUNDI,
+      MOZAMBIQUE,
+      ZAMBIA,
+      MADAGASCAR,
+      REUNION,
+      MAYOTTE,
+      ZIMBABWE,
+      NAMIBIA,
+      MALAWI,
+      LESOTHO,
+      BOTSWANA,
+      ESWATINI,
+      COMOROS,
+      SOUTH_AFRICA,
+      SAINT_HELENA,
+      TRISTAN_DA_CUNHA,
+      ERITREA,
+      ARUBA,
+      FAROE_ISLANDS,
+      GREENLAND,
+      GREECE,
+      NETHERLANDS,
+      BELGIUM,
+      FRANCE,
+      SPAIN,
+      GIBRALTAR,
+      PORTUGAL,
+      LUXEMBOURG,
+      IRELAND,
+      ICELAND,
+      ALBANIA,
+      MALTA,
+      CYPRUS,
+      FINLAND,
+      ALAND_ISLANDS,
+      BULGARIA,
+      HUNGARY,
+      LITHUANIA,
+      LATVIA,
+      ESTONIA,
+      MOLDOVA,
+      TRANSNISTRIA,
+      ARMENIA,
+      BELARUS,
+      ANDORRA,
+      MONACO,
+      SAN_MARINO,
+      UKRAINE,
+      SERBIA,
+      MONTENEGRO,
+      KOSOVO,
+      CROATIA,
+      SLOVENIA,
+      BOSNIA_AND_HERZEGOVINA,
+      NORTH_MACEDONIA,
+      ITALY,
+      VATICAN_CITY,
+      ROMANIA,
+      SWITZERLAND,
+      CZECH_REPUBLIC,
+      SLOVAKIA,
+      LIECHTENSTEIN,
+      AUSTRIA,
+      UNITED_KINGDOM,
+      GUERNSEY,
+      JERSEY,
+      ISLE_OF_MAN,
+      DENMARK,
+      SWEDEN,
+      NORWAY,
+      SVALBARD,
+      JAN_MAYEN,
+      POLAND,
+      GERMANY,
+      FALKLAND_ISLANDS,
+      SOUTH_GEORGIA_AND_SOUTH_SANDWICH_ISLANDS,
+      BELIZE,
+      GUATEMALA,
+      EL_SALVADOR,
+      HONDURAS,
+      NICARAGUA,
+      COSTA_RICA,
+      PANAMA,
+      SAINT_PIERRE_AND_MIQUELON,
+      HAITI,
+      PERU,
+      MEXICO,
+      CUBA,
+      ARGENTINA,
+      BRAZIL,
+      CHILE,
+      COLOMBIA,
+      VENEZUELA,
+      GUADELOUPE,
+      SAINT_MARTIN,
+      SAINT_BARTHELEMY,
+      BOLIVIA,
+      GUYANA,
+      ECUADOR,
+      FRENCH_GUIANA,
+      PARAGUAY,
+      MARTINIQUE,
+      SURINAME,
+      URUGUAY,
+      SINT_EUSTATIUS,
+      SABA,
+      BONAIRE,
+      CURACAO,
+      MALAYSIA,
+      AUSTRALIA,
+      COCOS_ISLANDS,
+      CHRISTMAS_ISLAND,
+      INDONESIA,
+      PHILIPPINES,
+      NEW_ZEALAND,
+      PITCAIRN_ISLANDS,
+      SINGAPORE,
+      THAILAND,
+      EAST_TIMOR,
+      AUSTRALIAN_ANTARCTIC_TERRITORY,
+      NORFOLK_ISLAND,
+      BRUNEI,
+      NAURU,
+      PAPUA_NEW_GUINEA,
+      TONGA,
+      SOLOMON_ISLANDS,
+      VANUATU,
+      FIJI,
+      PALAU,
+      WALLIS_AND_FUTUNA,
+      COOK_ISLANDS,
+      NIUE,
+      SAMOA,
+      KIRIBATI,
+      NEW_CALEDONIA,
+      TUVALU,
+      FRENCH_POLYNESIA,
+      TOKELAU,
+      MICRONESIA,
+      MARSHALL_ISLANDS,
+      RUSSIA,
+      KAZAKHSTAN,
+      ABKHAZIA,
+      SOUTH_OSSETIA,
+      JAPAN,
+      SOUTH_KOREA,
+      VIETNAM,
+      NORTH_KOREA,
+      HONG_KONG,
+      MACAU,
+      CAMBODIA,
+      LAOS,
+      CHINA,
+      BANGLADESH,
+      TAIWAN,
+      TURKEY,
+      NORTHERN_CYPRUS,
+      INDIA,
+      PAKISTAN,
+      AFGHANISTAN,
+      SRI_LANKA,
+      MYANMAR,
+      MALDIVES,
+      LEBANON,
+      JORDAN,
+      SYRIA,
+      IRAQ,
+      KUWAIT,
+      SAUDI_ARABIA,
+      YEMEN,
+      OMAN,
+      PALESTINE,
+      UAE,
+      ISRAEL,
+      BAHRAIN,
+      QATAR,
+      BHUTAN,
+      MONGOLIA,
+      NEPAL,
+      IRAN,
+      TAJIKISTAN,
+      TURKMENISTAN,
+      AZERBAIJAN,
+      GEORGIA,
+      KYRGYZSTAN,
+      UZBEKISTAN,
+    };
+
     // --- 기본 안내 및 국가번호 관련 ---
     public static ResponseNode CALLING_START = MakeNode("CALLING_START", "안녕하세요, 백악관 핫 라인에 전화하셨습니다.");
     public static ResponseNode NATIONALITY_REQ = MakeNode("NATIONALITY_REQ", "전화주신 분의 국적을 국가번호로 입력하고 우물 정자를 눌러주세요. 국가번호에 대해 잘 모르고 계신다면 별표를 눌러주세요.");

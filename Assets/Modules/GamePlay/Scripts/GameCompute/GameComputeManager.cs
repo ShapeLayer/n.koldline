@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 
 namespace GamePlay.GameCompute
 {
@@ -17,6 +19,7 @@ namespace GamePlay.GameCompute
       _instance = this;
       DontDestroyOnLoad(gameObject);
 
+      LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[2];
       Awake_Loader();
     }
     

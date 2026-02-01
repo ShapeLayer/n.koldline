@@ -31,6 +31,7 @@ namespace GamePlay.IngameObject
     {
       Debug.Log("TelephoneController Interact called");
       UIOverlayStackManager.Instance?.Push(_telephoneUIController);
+      GamePlay.GameCompute.GameComputeManager.Instance?.StartCalling();
     }
   }
 }

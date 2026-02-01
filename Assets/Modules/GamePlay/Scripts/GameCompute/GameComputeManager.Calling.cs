@@ -15,6 +15,13 @@ namespace GamePlay.GameCompute
     [SerializeField] ResponseNode _nextNode;
     [SerializeField] AudioClip[] _currentQueuedARSClips;
 
+    [Header("Calling Playback")]
+    [SerializeField] float _navigationHintIntervalSeconds = 6f;
+    [SerializeField] bool _isCallingActive;
+    [SerializeField] bool _isARSPlaying;
+    Coroutine _arsPlaybackRoutine;
+    Coroutine _navigationHintRoutine;
+
     [SerializeField] string _localeCode;           // 현재 로케일 코드
     [SerializeField] string _selectedNationId;     // 국가 ID
     [SerializeField] string _selectedPersonalRank; // 신분 등급 ID
@@ -46,15 +53,34 @@ namespace GamePlay.GameCompute
         ReadyCurrentARSFormatting();
       else
         _currentQueuedARSClips = _audioARSClips[_currentNode.AudioL10NKey];
-      
-      if (_currentNode.SuppressNavigationHint == false)
-        _currentQueuedARSClips = _currentQueuedARSClips.Append(_audioARSClips[AUDIO_CLIPS_NAVIGATION_HINT_KEY][0]).ToArray();
+    }
+
+    public void StartCalling()
+    {
+      _isCallingActive = true;
+      EnsureCurrentNodeInitialized();
+      ReadyCurrentARS();
+      PlayCurrentARSAndHandleTransitions();
+    }
+
+    public void EndCalling()
+    {
+      _isCallingActive = false;
+      StopARSPlayback();
+      StopNavigationHintLoop();
+      _currentNode = CID.CALLING_START;
+      _nextNode = default;
+      _numberSequenceBuffer.Clear();
     }
 
     void OnTelephoneButtonClickedTransfer(TelephoneButtonType buttonType)
     {
+      if (_isARSPlaying)
+        return;
+
       _pendingButton = buttonType;
       _hasPendingButton = true;
+      StopNavigationHintLoop();
       OnButtonPressed();
     }
 
@@ -85,7 +111,7 @@ namespace GamePlay.GameCompute
         return;
       }
 
-      if (HasTransferCondition(NodeTransferConditionType.NumberSequence) && IsNumberButton(pressedButton))
+      if (ShouldBufferNumberSequence() && IsNumberButton(pressedButton))
       {
         _numberSequenceBuffer.Add(pressedButton);
         return;
@@ -151,15 +177,20 @@ namespace GamePlay.GameCompute
       }
     }
 
-    void ApplyNodeTransitionIfReady()
+    void ApplyNodeTransitionIfReady(bool startPlayback = true)
     {
       if (string.IsNullOrEmpty(_nextNode.Id))
+      {
+        RestartNavigationHintLoopIfIdle();
         return;
+      }
 
       _currentNode = _nextNode;
       _nextNode = default;
       _numberSequenceBuffer.Clear();
       ReadyCurrentARS();
+      if (startPlayback)
+        PlayCurrentARSAndHandleTransitions();
     }
 
     void ApplyAlwaysTransitionsIfNeeded()
@@ -170,9 +201,121 @@ namespace GamePlay.GameCompute
         ProcessCurrentARSResponse(NodeTransferConditionType.Always);
         if (string.IsNullOrEmpty(_nextNode.Id))
           break;
-        ApplyNodeTransitionIfReady();
+        ApplyNodeTransitionIfReady(startPlayback: false);
         guard++;
       }
+    }
+
+    void PlayCurrentARSAndHandleTransitions()
+    {
+      if (_isCallingActive == false)
+        return;
+
+      StopARSPlayback();
+      StopNavigationHintLoop();
+      _arsPlaybackRoutine = StartCoroutine(PlayARSSequenceCoroutine());
+    }
+
+    System.Collections.IEnumerator PlayARSSequenceCoroutine()
+    {
+      _isARSPlaying = true;
+
+      var source = _telephoneController != null ? _telephoneController.AudioSrc : null;
+      if (source == null)
+      {
+        _isARSPlaying = false;
+        yield break;
+      }
+
+      if (_currentQueuedARSClips != null)
+      {
+        for (int i = 0; i < _currentQueuedARSClips.Length; i++)
+        {
+          var clip = _currentQueuedARSClips[i];
+          if (clip == null)
+            continue;
+
+          source.PlayOneShot(clip);
+          yield return new WaitForSeconds(clip.length);
+        }
+      }
+
+      _isARSPlaying = false;
+
+      if (HasTransferCondition(NodeTransferConditionType.Always))
+      {
+        ProcessCurrentARSResponse(NodeTransferConditionType.Always);
+        ApplyNodeTransitionIfReady();
+      }
+      else
+      {
+        RestartNavigationHintLoopIfIdle();
+      }
+    }
+
+    void StopARSPlayback()
+    {
+      if (_arsPlaybackRoutine != null)
+      {
+        StopCoroutine(_arsPlaybackRoutine);
+        _arsPlaybackRoutine = null;
+      }
+
+      _isARSPlaying = false;
+
+      var source = _telephoneController != null ? _telephoneController.AudioSrc : null;
+      if (source != null)
+        source.Stop();
+    }
+
+    void RestartNavigationHintLoopIfIdle()
+    {
+      if (_isCallingActive == false)
+        return;
+      if (_isARSPlaying)
+        return;
+      if (_currentNode.SuppressNavigationHint)
+        return;
+
+      StartNavigationHintLoop();
+    }
+
+    void StartNavigationHintLoop()
+    {
+      if (_navigationHintRoutine != null)
+        return;
+      _navigationHintRoutine = StartCoroutine(NavigationHintLoopCoroutine());
+    }
+
+    void StopNavigationHintLoop()
+    {
+      if (_navigationHintRoutine == null)
+        return;
+      StopCoroutine(_navigationHintRoutine);
+      _navigationHintRoutine = null;
+    }
+
+    System.Collections.IEnumerator NavigationHintLoopCoroutine()
+    {
+      var source = _telephoneController != null ? _telephoneController.AudioSrc : null;
+      if (source == null)
+      {
+        _navigationHintRoutine = null;
+        yield break;
+      }
+
+      while (_isCallingActive && _currentNode.SuppressNavigationHint == false)
+      {
+        yield return new WaitForSeconds(_navigationHintIntervalSeconds);
+
+        if (_isARSPlaying)
+          continue;
+
+        if (_audioARSClips.TryGetValue(AUDIO_CLIP_NAVIGATION_HINT_KEY, out var clips) && clips.Length > 0 && clips[0] != null)
+          source.PlayOneShot(clips[0]);
+      }
+
+      _navigationHintRoutine = null;
     }
 
     bool HasTransferCondition(NodeTransferConditionType conditionType)
@@ -186,6 +329,14 @@ namespace GamePlay.GameCompute
           return true;
       }
       return false;
+    }
+
+    bool ShouldBufferNumberSequence()
+    {
+      if (HasTransferCondition(NodeTransferConditionType.NumberSequence))
+        return true;
+
+      return _currentNode.Id == CID.NATIONALITY_REQ.Id;
     }
 
     bool IsNumberButton(TelephoneButtonType buttonType)

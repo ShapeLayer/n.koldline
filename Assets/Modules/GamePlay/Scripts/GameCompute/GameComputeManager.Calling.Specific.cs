@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using GamePlay.CallingInteraction;
 using Infrastructure.Commons;
@@ -156,20 +157,21 @@ namespace GamePlay.GameCompute
       // 1. 국가 선택
       if (_currentNode.Id == CID.NATN_SELECTED.Id)
       {
+        var natnSelectedClips = _audioARSClips[CID.NATN_SELECTED.AudioL10NKey];
         switch (_localeCode)
         {
           case "ja":
           case "ko":
             _currentQueuedARSClips = new AudioClip[] {
                             _audioARSClips[_selectedNationId][0],
-                            _audioARSClips[CID.NATN_SELECTED.AudioL10NKey + "_S1"][0],
+                            natnSelectedClips[0],
                         };
             break;
           default: // en 포함
             _currentQueuedARSClips = new AudioClip[] {
-                            _audioARSClips[CID.NATN_SELECTED.AudioL10NKey + "_S1"][0],
+                            natnSelectedClips[0],
                             _audioARSClips[_selectedNationId][0],
-                            _audioARSClips[CID.NATN_SELECTED.AudioL10NKey + "_S2"][0],
+                            natnSelectedClips.Length > 1 ? natnSelectedClips[1] : natnSelectedClips[0],
                         };
             break;
         }
@@ -369,12 +371,305 @@ namespace GamePlay.GameCompute
               return new string(chars);
             }
 
+            static readonly Dictionary<string, string> NationCodeToId = new()
+            {
+              // P1 (NANP)
+              { "1340", CID.US_VIRGIN_ISLANDS },
+              { "1670", CID.NORTHERN_MARIANA_ISLANDS },
+              { "1671", CID.GUAM },
+              { "1684", CID.AMERICAN_SAMOA },
+              { "1787", CID.PUERTO_RICO },
+              { "1939", CID.PUERTO_RICO },
+              { "1441", CID.BERMUDA },
+              { "1264", CID.ANGUILLA },
+              { "1284", CID.BRITISH_VIRGIN_ISLANDS },
+              { "1345", CID.CAYMAN_ISLANDS },
+              { "1649", CID.TURKS_AND_CAICOS_ISLANDS },
+              { "1664", CID.MONTSERRAT },
+              { "1242", CID.BAHAMAS },
+              { "1246", CID.BARBADOS },
+              { "1268", CID.ANTIGUA_AND_BARBUDA },
+              { "1473", CID.GRENADA },
+              { "1721", CID.SINT_MAARTEN },
+              { "1758", CID.SAINT_LUCIA },
+              { "1767", CID.DOMINICA },
+              { "1784", CID.SAINT_VINCENT_AND_THE_GRENADINES },
+              { "1868", CID.TRINIDAD_AND_TOBAGO },
+              { "1869", CID.SAINT_KITTS_AND_NEVIS },
+              { "1876", CID.JAMAICA },
+              { "1809", CID.DOMINICAN_REPUBLIC },
+              { "1829", CID.DOMINICAN_REPUBLIC },
+              { "1849", CID.DOMINICAN_REPUBLIC },
+
+              // P2
+              { "20", CID.EGYPT },
+              { "211", CID.SOUTH_SUDAN },
+              { "212", CID.MOROCCO },
+              { "213", CID.ALGERIA },
+              { "216", CID.TUNISIA },
+              { "218", CID.LIBYA },
+              { "220", CID.GAMBIA },
+              { "221", CID.SENEGAL },
+              { "222", CID.MAURITANIA },
+              { "223", CID.MALI },
+              { "224", CID.GUINEA },
+              { "225", CID.IVORY_COAST },
+              { "226", CID.BURKINA_FASO },
+              { "227", CID.NIGER },
+              { "228", CID.TOGO },
+              { "229", CID.BENIN },
+              { "230", CID.MAURITIUS },
+              { "231", CID.LIBERIA },
+              { "232", CID.SIERRA_LEONE },
+              { "233", CID.GHANA },
+              { "234", CID.NIGERIA },
+              { "235", CID.CHAD },
+              { "236", CID.CENTRAL_AFRICAN_REPUBLIC },
+              { "237", CID.CAMEROON },
+              { "238", CID.CAPE_VERDE },
+              { "239", CID.SAO_TOME_AND_PRINCIPE },
+              { "240", CID.EQUATORIAL_GUINEA },
+              { "241", CID.GABON },
+              { "242", CID.REPUBLIC_OF_THE_CONGO },
+              { "243", CID.DR_CONGO },
+              { "244", CID.ANGOLA },
+              { "245", CID.GUINEA_BISSAU },
+              { "246", CID.BRITISH_INDIAN_OCEAN_TERRITORY },
+              { "247", CID.ASCENSION_ISLAND },
+              { "248", CID.SEYCHELLES },
+              { "249", CID.SUDAN },
+              { "250", CID.RWANDA },
+              { "251", CID.ETHIOPIA },
+              { "252", CID.SOMALIA },
+              { "253", CID.DJIBOUTI },
+              { "254", CID.KENYA },
+              { "255", CID.TANZANIA },
+              { "256", CID.UGANDA },
+              { "257", CID.BURUNDI },
+              { "258", CID.MOZAMBIQUE },
+              { "260", CID.ZAMBIA },
+              { "261", CID.MADAGASCAR },
+              { "262", CID.REUNION },
+              { "263", CID.ZIMBABWE },
+              { "264", CID.NAMIBIA },
+              { "265", CID.MALAWI },
+              { "266", CID.LESOTHO },
+              { "267", CID.BOTSWANA },
+              { "268", CID.ESWATINI },
+              { "269", CID.COMOROS },
+              { "27", CID.SOUTH_AFRICA },
+              { "290", CID.SAINT_HELENA },
+              { "291", CID.ERITREA },
+              { "297", CID.ARUBA },
+              { "298", CID.FAROE_ISLANDS },
+              { "299", CID.GREENLAND },
+
+              // P3
+              { "30", CID.GREECE },
+              { "31", CID.NETHERLANDS },
+              { "32", CID.BELGIUM },
+              { "33", CID.FRANCE },
+              { "34", CID.SPAIN },
+              { "350", CID.GIBRALTAR },
+              { "351", CID.PORTUGAL },
+              { "352", CID.LUXEMBOURG },
+              { "353", CID.IRELAND },
+              { "354", CID.ICELAND },
+              { "355", CID.ALBANIA },
+              { "356", CID.MALTA },
+              { "357", CID.CYPRUS },
+              { "358", CID.FINLAND },
+              { "35818", CID.ALAND_ISLANDS },
+              { "359", CID.BULGARIA },
+              { "36", CID.HUNGARY },
+              { "370", CID.LITHUANIA },
+              { "371", CID.LATVIA },
+              { "372", CID.ESTONIA },
+              { "373", CID.MOLDOVA },
+              { "374", CID.ARMENIA },
+              { "375", CID.BELARUS },
+              { "376", CID.ANDORRA },
+              { "377", CID.MONACO },
+              { "378", CID.SAN_MARINO },
+              { "380", CID.UKRAINE },
+              { "381", CID.SERBIA },
+              { "382", CID.MONTENEGRO },
+              { "383", CID.KOSOVO },
+              { "385", CID.CROATIA },
+              { "386", CID.SLOVENIA },
+              { "387", CID.BOSNIA_AND_HERZEGOVINA },
+              { "389", CID.NORTH_MACEDONIA },
+              { "39", CID.ITALY },
+              { "3906698", CID.VATICAN_CITY },
+              { "40", CID.ROMANIA },
+              { "41", CID.SWITZERLAND },
+              { "420", CID.CZECH_REPUBLIC },
+              { "421", CID.SLOVAKIA },
+              { "423", CID.LIECHTENSTEIN },
+              { "43", CID.AUSTRIA },
+              { "44", CID.UNITED_KINGDOM },
+              { "441481", CID.GUERNSEY },
+              { "441534", CID.JERSEY },
+              { "441624", CID.ISLE_OF_MAN },
+              { "45", CID.DENMARK },
+              { "46", CID.SWEDEN },
+              { "47", CID.NORWAY },
+              { "4779", CID.SVALBARD },
+              { "48", CID.POLAND },
+              { "49", CID.GERMANY },
+
+              // P5
+              { "500", CID.FALKLAND_ISLANDS },
+              { "501", CID.BELIZE },
+              { "502", CID.GUATEMALA },
+              { "503", CID.EL_SALVADOR },
+              { "504", CID.HONDURAS },
+              { "505", CID.NICARAGUA },
+              { "506", CID.COSTA_RICA },
+              { "507", CID.PANAMA },
+              { "508", CID.SAINT_PIERRE_AND_MIQUELON },
+              { "509", CID.HAITI },
+              { "51", CID.PERU },
+              { "52", CID.MEXICO },
+              { "53", CID.CUBA },
+              { "54", CID.ARGENTINA },
+              { "55", CID.BRAZIL },
+              { "56", CID.CHILE },
+              { "57", CID.COLOMBIA },
+              { "58", CID.VENEZUELA },
+              { "590", CID.GUADELOUPE },
+              { "591", CID.BOLIVIA },
+              { "592", CID.GUYANA },
+              { "593", CID.ECUADOR },
+              { "594", CID.FRENCH_GUIANA },
+              { "595", CID.PARAGUAY },
+              { "596", CID.MARTINIQUE },
+              { "597", CID.SURINAME },
+              { "598", CID.URUGUAY },
+              { "5993", CID.SINT_EUSTATIUS },
+              { "5994", CID.SABA },
+              { "5997", CID.BONAIRE },
+              { "5999", CID.CURACAO },
+
+              // P6
+              { "60", CID.MALAYSIA },
+              { "61", CID.AUSTRALIA },
+              { "6189162", CID.COCOS_ISLANDS },
+              { "6189164", CID.CHRISTMAS_ISLAND },
+              { "62", CID.INDONESIA },
+              { "63", CID.PHILIPPINES },
+              { "64", CID.NEW_ZEALAND },
+              { "65", CID.SINGAPORE },
+              { "66", CID.THAILAND },
+              { "670", CID.EAST_TIMOR },
+              { "6721", CID.AUSTRALIAN_ANTARCTIC_TERRITORY },
+              { "6723", CID.NORFOLK_ISLAND },
+              { "673", CID.BRUNEI },
+              { "674", CID.NAURU },
+              { "675", CID.PAPUA_NEW_GUINEA },
+              { "676", CID.TONGA },
+              { "677", CID.SOLOMON_ISLANDS },
+              { "678", CID.VANUATU },
+              { "679", CID.FIJI },
+              { "680", CID.PALAU },
+              { "681", CID.WALLIS_AND_FUTUNA },
+              { "682", CID.COOK_ISLANDS },
+              { "683", CID.NIUE },
+              { "685", CID.SAMOA },
+              { "686", CID.KIRIBATI },
+              { "687", CID.NEW_CALEDONIA },
+              { "688", CID.TUVALU },
+              { "689", CID.FRENCH_POLYNESIA },
+              { "690", CID.TOKELAU },
+              { "691", CID.MICRONESIA },
+              { "692", CID.MARSHALL_ISLANDS },
+
+              // P7
+              { "7840", CID.ABKHAZIA },
+              { "7940", CID.ABKHAZIA },
+              { "7850", CID.SOUTH_OSSETIA },
+              { "7929", CID.SOUTH_OSSETIA },
+
+              // P8
+              { "81", CID.JAPAN },
+              { "82", CID.SOUTH_KOREA },
+              { "84", CID.VIETNAM },
+              { "850", CID.NORTH_KOREA },
+              { "852", CID.HONG_KONG },
+              { "853", CID.MACAU },
+              { "855", CID.CAMBODIA },
+              { "856", CID.LAOS },
+              { "86", CID.CHINA },
+              { "880", CID.BANGLADESH },
+              { "886", CID.TAIWAN },
+
+              // P9
+              { "90", CID.TURKEY },
+              { "90533", CID.NORTHERN_CYPRUS },
+              { "90548", CID.NORTHERN_CYPRUS },
+              { "91", CID.INDIA },
+              { "92", CID.PAKISTAN },
+              { "93", CID.AFGHANISTAN },
+              { "94", CID.SRI_LANKA },
+              { "95", CID.MYANMAR },
+              { "960", CID.MALDIVES },
+              { "961", CID.LEBANON },
+              { "962", CID.JORDAN },
+              { "963", CID.SYRIA },
+              { "964", CID.IRAQ },
+              { "965", CID.KUWAIT },
+              { "966", CID.SAUDI_ARABIA },
+              { "967", CID.YEMEN },
+              { "968", CID.OMAN },
+              { "970", CID.PALESTINE },
+              { "971", CID.UAE },
+              { "972", CID.ISRAEL },
+              { "973", CID.BAHRAIN },
+              { "974", CID.QATAR },
+              { "975", CID.BHUTAN },
+              { "976", CID.MONGOLIA },
+              { "977", CID.NEPAL },
+              { "98", CID.IRAN },
+              { "992", CID.TAJIKISTAN },
+              { "993", CID.TURKMENISTAN },
+              { "994", CID.AZERBAIJAN },
+              { "995", CID.GEORGIA },
+              { "99534", CID.SOUTH_OSSETIA },
+              { "996", CID.KYRGYZSTAN },
+              { "998", CID.UZBEKISTAN },
+            };
+
             static string GetNationKeyFromSequence(TelephoneButtonType[] buttons)
             {
               var digits = ToDigitString(buttons);
               if (string.IsNullOrEmpty(digits))
                 return null;
-              return $"NUM_{digits[0]}";
+
+              if (NationCodeToId.TryGetValue(digits, out var nationId))
+                return nationId;
+
+              if (digits == "1")
+                return CID.USA;
+
+              if (digits.StartsWith("1") && digits.Length >= 4)
+              {
+                if (int.TryParse(digits.Substring(1, 3), out var areaCode))
+                {
+                  if (areaCode == 204 || (areaCode >= 226 && areaCode <= 942))
+                    return CID.CANADA;
+
+                  if (areaCode >= 201 && areaCode <= 989)
+                    return CID.USA;
+                }
+              }
+
+              if (digits.StartsWith("76") || digits.StartsWith("77"))
+                return CID.KAZAKHSTAN;
+
+              if (digits.StartsWith("7"))
+                return CID.RUSSIA;
+
+              return null;
             }
 
             bool IsNationalityInfoNode(string nodeId)

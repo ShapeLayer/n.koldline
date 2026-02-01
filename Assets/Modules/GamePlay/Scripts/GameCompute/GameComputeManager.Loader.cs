@@ -25,7 +25,14 @@ namespace GamePlay.GameCompute
     [SerializeField] AudioClip _audioTimerTickTock;
     [SerializeField] AudioClip _audioButtonPressed;
     Dictionary<string, AudioClip[]> _audioARSClips = new Dictionary<string, AudioClip[]>();
-    public const string AUDIO_CLIPS_NAVIGATION_HINT_KEY = "NAVIGATION_HINT";
+    public const string AUDIO_CLIP_NAVIGATION_HINT_KEY = "NAVIGATION_HINT";
+    public const string AUDIO_CLIP_UNOFFICIAL_WORKING_STAFF = "UNOFFICIAL_WORKING_STAFF";
+    public const string AUDIO_CLIP_OFFICIAL_WORKING_STAFF = "OFFICIAL_WORKING_STAFF";
+    public const string AUDIO_CLIP_REGIONAL_OFFICIAL_WORKING_STAFF = "REGIONAL_OFFICIAL_WORKING_STAFF";
+    public const string AUDIO_CLIP_CENTRAL_OFFICIAL_WORKING_STAFF = "CENTRAL_OFFICIAL_WORKING_STAFF";
+    public const string AUDIO_CLIP_CENTRAL_OFFICIAL_AUTH_HEAD_STAFF = "CENTRAL_OFFICIAL_AUTH_HEAD_STAFF";
+    public const string AUDIO_CLIP_CENTRAL_OFFICIAL_TOP_STAFF = "CENTRAL_OFFICIAL_TOP_STAFF";
+    public const string AUDIO_CLIP_NUM_PREFIX = "NUM_";
     
     [Header("References")]
     [SerializeField] MainCameraController _mainCameraController;
@@ -60,227 +67,261 @@ namespace GamePlay.GameCompute
     void LoadARSResources()
     {
       _audioARSClips.Clear();
-      string localeCode = LocalizationUtils.GetLanguageCode(LocalizationSettings.SelectedLocale);
-      _audioARSClips.Add(AUDIO_CLIPS_NAVIGATION_HINT_KEY, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{AUDIO_CLIPS_NAVIGATION_HINT_KEY}") });
-      _audioARSClips.Add(CID.CALLING_START.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.CALLING_START.AudioL10NKey}") });
-      _audioARSClips.Add(CID.NATIONALITY_REQ.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.NATIONALITY_REQ.AudioL10NKey}") });
-      _audioARSClips.Add(CID.NATN_CODE_ENTRY.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.NATN_CODE_ENTRY.AudioL10NKey}") });
-      _audioARSClips.Add(CID.NATN_CODE_P1.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.NATN_CODE_P1.AudioL10NKey}") });
-      _audioARSClips.Add(CID.NATN_CODE_P2.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.NATN_CODE_P2.AudioL10NKey}") });
-      _audioARSClips.Add(CID.NATN_CODE_P3.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.NATN_CODE_P3.AudioL10NKey}") });
-      _audioARSClips.Add(CID.NATN_CODE_P5.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.NATN_CODE_P5.AudioL10NKey}") });
-      _audioARSClips.Add(CID.NATN_CODE_P6.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.NATN_CODE_P6.AudioL10NKey}") });
-      _audioARSClips.Add(CID.NATN_CODE_P7.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.NATN_CODE_P7.AudioL10NKey}") });
-      _audioARSClips.Add(CID.NATN_CODE_P8.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.NATN_CODE_P8.AudioL10NKey}") });
-      _audioARSClips.Add(CID.NATN_CODE_P9.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.NATN_CODE_P9.AudioL10NKey}") });
+      _audioARSClips.Add(AUDIO_CLIP_NAVIGATION_HINT_KEY, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{AUDIO_CLIP_NAVIGATION_HINT_KEY}") });
+      _audioARSClips.Add(CID.CALLING_START.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.CALLING_START.AudioL10NKey}") });
+      _audioARSClips.Add(CID.NATIONALITY_REQ.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.NATIONALITY_REQ.AudioL10NKey}") });
+      _audioARSClips.Add(CID.NATN_CODE_ENTRY.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.NATN_CODE_ENTRY.AudioL10NKey}") });
+      _audioARSClips.Add(CID.NATN_CODE_P1.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.NATN_CODE_P1.AudioL10NKey}") });
+      _audioARSClips.Add(CID.NATN_CODE_P2.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.NATN_CODE_P2.AudioL10NKey}") });
+      _audioARSClips.Add(CID.NATN_CODE_P3.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.NATN_CODE_P3.AudioL10NKey}") });
+      _audioARSClips.Add(CID.NATN_CODE_P5.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.NATN_CODE_P5.AudioL10NKey}") });
+      _audioARSClips.Add(CID.NATN_CODE_P6.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.NATN_CODE_P6.AudioL10NKey}") });
+      _audioARSClips.Add(CID.NATN_CODE_P7.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.NATN_CODE_P7.AudioL10NKey}") });
+      _audioARSClips.Add(CID.NATN_CODE_P8.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.NATN_CODE_P8.AudioL10NKey}") });
+      _audioARSClips.Add(CID.NATN_CODE_P9.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.NATN_CODE_P9.AudioL10NKey}") });
       
-      switch (localeCode) {
+      switch (_localeCode) {
         case "en":
           _audioARSClips.Add(CID.NATN_SELECTED.AudioL10NKey, new AudioClip[] {
-            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.NATN_SELECTED.AudioL10NKey}_S1"),
-            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.NATN_SELECTED.AudioL10NKey}_S2")
+            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.NATN_SELECTED.AudioL10NKey}_S1"),
+            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.NATN_SELECTED.AudioL10NKey}_S2")
           });
           break;
         case "ja":
         case "ko":
-          _audioARSClips.Add(CID.NATN_SELECTED.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.NATN_SELECTED.AudioL10NKey}_S1") });
+          _audioARSClips.Add(CID.NATN_SELECTED.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.NATN_SELECTED.AudioL10NKey}_S1") });
           break;
         default:
           _audioARSClips.Add(CID.NATN_SELECTED.AudioL10NKey, new AudioClip[] {
-            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.NATN_SELECTED.AudioL10NKey}_S1"),
-            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.NATN_SELECTED.AudioL10NKey}_S2")
+            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.NATN_SELECTED.AudioL10NKey}_S1"),
+            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.NATN_SELECTED.AudioL10NKey}_S2")
           });
           break;
       }
 
-      _audioARSClips.Add(CID.IDENTITY_REQ.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.IDENTITY_REQ.AudioL10NKey}") });
+      _audioARSClips.Add(CID.IDENTITY_REQ.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.IDENTITY_REQ.AudioL10NKey}") });
       
-      switch (localeCode) {
+      switch (_localeCode) {
         case "en":
           _audioARSClips.Add(CID.IDENTITY_SELECTED.AudioL10NKey, new AudioClip[] {
-            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.IDENTITY_SELECTED.AudioL10NKey}_S1"),
-            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.IDENTITY_SELECTED.AudioL10NKey}_S2"),
-            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.IDENTITY_SELECTED.AudioL10NKey}_S3"),
+            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.IDENTITY_SELECTED.AudioL10NKey}_S1"),
+            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.IDENTITY_SELECTED.AudioL10NKey}_S2"),
+            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.IDENTITY_SELECTED.AudioL10NKey}_S3"),
           });
           break;
         case "ja":
         case "ko":
           _audioARSClips.Add(CID.IDENTITY_SELECTED.AudioL10NKey, new AudioClip[] {
-            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.IDENTITY_SELECTED.AudioL10NKey}_S1"),
-            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.IDENTITY_SELECTED.AudioL10NKey}_S2"),
+            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.IDENTITY_SELECTED.AudioL10NKey}_S1"),
+            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.IDENTITY_SELECTED.AudioL10NKey}_S2"),
           });
           break;
         default:
           _audioARSClips.Add(CID.IDENTITY_SELECTED.AudioL10NKey, new AudioClip[] {
-            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.IDENTITY_SELECTED.AudioL10NKey}_S1"),
-            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.IDENTITY_SELECTED.AudioL10NKey}_S2"),
-            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.IDENTITY_SELECTED.AudioL10NKey}_S3"),
+            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.IDENTITY_SELECTED.AudioL10NKey}_S1"),
+            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.IDENTITY_SELECTED.AudioL10NKey}_S2"),
+            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.IDENTITY_SELECTED.AudioL10NKey}_S3"),
           });
           break;
       }
 
-      _audioARSClips.Add(CID.TARGET_SETTING.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.TARGET_SETTING.AudioL10NKey}") });
-      _audioARSClips.Add(CID.HOTLINE_AUTH_REQ.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.HOTLINE_AUTH_REQ.AudioL10NKey}") });
-      _audioARSClips.Add(CID.HOTLINE_AUTH_FAIL.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.HOTLINE_AUTH_FAIL.AudioL10NKey}") });
-      _audioARSClips.Add(CID.HOTLINE_AUTH_SUCC.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.HOTLINE_AUTH_SUCC.AudioL10NKey}") });
-      _audioARSClips.Add(CID.HOTLINE_ABSENCE.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.HOTLINE_ABSENCE.AudioL10NKey}") });
+      _audioARSClips.Add(CID.TARGET_SETTING.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.TARGET_SETTING.AudioL10NKey}") });
+      _audioARSClips.Add(CID.HOTLINE_AUTH_REQ.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.HOTLINE_AUTH_REQ.AudioL10NKey}") });
+      _audioARSClips.Add(CID.HOTLINE_AUTH_FAIL.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.HOTLINE_AUTH_FAIL.AudioL10NKey}") });
+      _audioARSClips.Add(CID.HOTLINE_AUTH_SUCC.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.HOTLINE_AUTH_SUCC.AudioL10NKey}") });
+      _audioARSClips.Add(CID.HOTLINE_ABSENCE.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.HOTLINE_ABSENCE.AudioL10NKey}") });
       
-      switch (localeCode) {
+      switch (_localeCode) {
         case "en":
         case "ja":
         case "ko":
           _audioARSClips.Add(CID.HOTLINE_RESERVE.AudioL10NKey, new AudioClip[] {
-            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.HOTLINE_RESERVE.AudioL10NKey}_S1"),
-            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.HOTLINE_RESERVE.AudioL10NKey}_S2"),
+            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.HOTLINE_RESERVE.AudioL10NKey}_S1"),
+            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.HOTLINE_RESERVE.AudioL10NKey}_S2"),
           });
           break;
         default:
-          _audioARSClips.Add(CID.HOTLINE_RESERVE.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.HOTLINE_RESERVE.AudioL10NKey}") });
+          _audioARSClips.Add(CID.HOTLINE_RESERVE.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.HOTLINE_RESERVE.AudioL10NKey}") });
         break;
       }
 
-      _audioARSClips.Add(CID.HOTLINE_EMERGENCY.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.HOTLINE_EMERGENCY.AudioL10NKey}") });
-      _audioARSClips.Add(CID.MILITARY_RISK.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.MILITARY_RISK.AudioL10NKey}") });
-      _audioARSClips.Add(CID.NUCLEAR_EMERGENCY.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.NUCLEAR_EMERGENCY.AudioL10NKey}") });
-      _audioARSClips.Add(CID.INTERCEPT_REQ.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.INTERCEPT_REQ.AudioL10NKey}") });
+      _audioARSClips.Add(CID.HOTLINE_EMERGENCY.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.HOTLINE_EMERGENCY.AudioL10NKey}") });
+      _audioARSClips.Add(CID.MILITARY_RISK.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.MILITARY_RISK.AudioL10NKey}") });
+      _audioARSClips.Add(CID.NUCLEAR_EMERGENCY.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.NUCLEAR_EMERGENCY.AudioL10NKey}") });
+      _audioARSClips.Add(CID.INTERCEPT_REQ.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.INTERCEPT_REQ.AudioL10NKey}") });
       
-      _audioARSClips.Add(CID.MIL_CODE_ENTRY.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.MIL_CODE_ENTRY.AudioL10NKey}") });
-      switch (localeCode) {
+      _audioARSClips.Add(CID.MIL_CODE_ENTRY.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.MIL_CODE_ENTRY.AudioL10NKey}") });
+      switch (_localeCode) {
         case "en":
         case "ja":
         case "ko":
         default:
           _audioARSClips.Add(CID.MIL_CODE_CONFIRM_1.AudioL10NKey, new AudioClip[] {
-            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.MIL_CODE_CONFIRM_1.AudioL10NKey}_S1"),
-            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.MIL_CODE_CONFIRM_1.AudioL10NKey}_S2"),
+            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.MIL_CODE_CONFIRM_1.AudioL10NKey}_S1"),
+            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.MIL_CODE_CONFIRM_1.AudioL10NKey}_S2"),
           });  
           break;
       }
 
-      _audioARSClips.Add(CID.MIL_CODE_CONFIRM_2.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.MIL_CODE_CONFIRM_2.AudioL10NKey}") });
-      _audioARSClips.Add(CID.MIL_CODE_CANCEL.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.MIL_CODE_CANCEL.AudioL10NKey}") });
-      _audioARSClips.Add(CID.MIL_CODE_FAIL.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.MIL_CODE_FAIL.AudioL10NKey}") });
-      _audioARSClips.Add(CID.MIL_ACTION_START.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.MIL_ACTION_START.AudioL10NKey}") });
-      switch (localeCode) {
+      _audioARSClips.Add(CID.MIL_CODE_CONFIRM_2.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.MIL_CODE_CONFIRM_2.AudioL10NKey}") });
+      _audioARSClips.Add(CID.MIL_CODE_CANCEL.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.MIL_CODE_CANCEL.AudioL10NKey}") });
+      _audioARSClips.Add(CID.MIL_CODE_FAIL.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.MIL_CODE_FAIL.AudioL10NKey}") });
+      _audioARSClips.Add(CID.MIL_ACTION_START.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.MIL_ACTION_START.AudioL10NKey}") });
+      switch (_localeCode) {
         case "en":
         case "ja":
         case "ko":
         default:
           _audioARSClips.Add(CID.OPERATOR_CONNECT.AudioL10NKey, new AudioClip[] {
-            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.OPERATOR_CONNECT.AudioL10NKey}_S1"),
-            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.OPERATOR_CONNECT.AudioL10NKey}_S2"),
-            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.OPERATOR_CONNECT.AudioL10NKey}_S3"),
+            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.OPERATOR_CONNECT.AudioL10NKey}_S1"),
+            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.OPERATOR_CONNECT.AudioL10NKey}_S2"),
+            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.OPERATOR_CONNECT.AudioL10NKey}_S3"),
           });
           break;
       }
-      _audioARSClips.Add(CID.TRAFFIC_OVERLOAD.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.TRAFFIC_OVERLOAD.AudioL10NKey}") });
-      _audioARSClips.Add(CID.MISC_INQUIRY.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.MISC_INQUIRY.AudioL10NKey}") });
-      _audioARSClips.Add(CID.NUCLEAR_PROG.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.NUCLEAR_PROG.AudioL10NKey}") });
-      _audioARSClips.Add(CID.NUCLEAR_LEARN.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.NUCLEAR_LEARN.AudioL10NKey}") });
-      _audioARSClips.Add(CID.MISSILE_LIST_REQ.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.MISSILE_LIST_REQ.AudioL10NKey}") });
-      _audioARSClips.Add(CID.MISSILE_LIST_NK.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.MISSILE_LIST_NK.AudioL10NKey}") });
-      _audioARSClips.Add(CID.US_WEAPONS.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.US_WEAPONS.AudioL10NKey}") });
-      _audioARSClips.Add(CID.DEFENSE_WEAPONS.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.DEFENSE_WEAPONS.AudioL10NKey}") });
-      _audioARSClips.Add(CID.POWER_CODE_REQ.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.POWER_CODE_REQ.AudioL10NKey}") });
+      _audioARSClips.Add(CID.TRAFFIC_OVERLOAD.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.TRAFFIC_OVERLOAD.AudioL10NKey}") });
+      _audioARSClips.Add(CID.MISC_INQUIRY.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.MISC_INQUIRY.AudioL10NKey}") });
+      _audioARSClips.Add(CID.NUCLEAR_PROG.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.NUCLEAR_PROG.AudioL10NKey}") });
+      _audioARSClips.Add(CID.NUCLEAR_LEARN.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.NUCLEAR_LEARN.AudioL10NKey}") });
+      _audioARSClips.Add(CID.MISSILE_LIST_REQ.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.MISSILE_LIST_REQ.AudioL10NKey}") });
+      _audioARSClips.Add(CID.MISSILE_LIST_NK.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.MISSILE_LIST_NK.AudioL10NKey}") });
+      _audioARSClips.Add(CID.US_WEAPONS.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.US_WEAPONS.AudioL10NKey}") });
+      _audioARSClips.Add(CID.DEFENSE_WEAPONS.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.DEFENSE_WEAPONS.AudioL10NKey}") });
+      _audioARSClips.Add(CID.POWER_CODE_REQ.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.POWER_CODE_REQ.AudioL10NKey}") });
       
-      switch (localeCode) {
+      switch (_localeCode) {
         case "en":
           _audioARSClips.Add(CID.POWER_CODE_LOW.AudioL10NKey, new AudioClip[] {
-            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.POWER_CODE_LOW.AudioL10NKey}_S1"),
+            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.POWER_CODE_LOW.AudioL10NKey}_S1"),
           });
           break;
         case "ja":
         case "ko":
           _audioARSClips.Add(CID.POWER_CODE_LOW.AudioL10NKey, new AudioClip[] {
-            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.POWER_CODE_LOW.AudioL10NKey}_S1"),
-            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.POWER_CODE_LOW.AudioL10NKey}_S2"),
+            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.POWER_CODE_LOW.AudioL10NKey}_S1"),
+            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.POWER_CODE_LOW.AudioL10NKey}_S2"),
           });
           break;
         default:
           _audioARSClips.Add(CID.POWER_CODE_LOW.AudioL10NKey, new AudioClip[] {
-            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.POWER_CODE_LOW.AudioL10NKey}_S1"),
+            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.POWER_CODE_LOW.AudioL10NKey}_S1"),
           });
           break;
       }
       
-      switch (localeCode) {
+      switch (_localeCode) {
         case "en":
-          _audioARSClips.Add(CID.POWER_CODE_HIGH.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.POWER_CODE_HIGH.AudioL10NKey}_S1") });
+          _audioARSClips.Add(CID.POWER_CODE_HIGH.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.POWER_CODE_HIGH.AudioL10NKey}_S1") });
           break;
         case "ja":
         case "ko":
           _audioARSClips.Add(CID.POWER_CODE_HIGH.AudioL10NKey, new AudioClip[] {
-            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.POWER_CODE_HIGH.AudioL10NKey}_S1"),
-            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.POWER_CODE_HIGH.AudioL10NKey}_S2"),
+            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.POWER_CODE_HIGH.AudioL10NKey}_S1"),
+            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.POWER_CODE_HIGH.AudioL10NKey}_S2"),
           });
           break;
         default:
-          _audioARSClips.Add(CID.POWER_CODE_HIGH.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.POWER_CODE_HIGH.AudioL10NKey}_S1") });
+          _audioARSClips.Add(CID.POWER_CODE_HIGH.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.POWER_CODE_HIGH.AudioL10NKey}_S1") });
           break;
       }
       
-      _audioARSClips.Add(CID.INTERCEPT_METHOD.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.INTERCEPT_METHOD.AudioL10NKey}") });
+      _audioARSClips.Add(CID.INTERCEPT_METHOD.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.INTERCEPT_METHOD.AudioL10NKey}") });
       
-      switch (localeCode) {
+      switch (_localeCode) {
         case "en":
-          _audioARSClips.Add(CID.INTERCEPT_CODE_X0.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.INTERCEPT_CODE_X0.AudioL10NKey}_S1") });
+          _audioARSClips.Add(CID.INTERCEPT_CODE_X0.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.INTERCEPT_CODE_X0.AudioL10NKey}_S1") });
           break;
         case "ja":
         case "ko":
           _audioARSClips.Add(CID.INTERCEPT_CODE_X0.AudioL10NKey, new AudioClip[] {
-            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.INTERCEPT_CODE_X0.AudioL10NKey}_S1"),
-            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.INTERCEPT_CODE_X0.AudioL10NKey}_S2"),
+            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.INTERCEPT_CODE_X0.AudioL10NKey}_S1"),
+            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.INTERCEPT_CODE_X0.AudioL10NKey}_S2"),
           });
           break;
         default:
-          _audioARSClips.Add(CID.INTERCEPT_CODE_X0.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.INTERCEPT_CODE_X0.AudioL10NKey}_S1") });
+          _audioARSClips.Add(CID.INTERCEPT_CODE_X0.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.INTERCEPT_CODE_X0.AudioL10NKey}_S1") });
           break;
       }
 
-      switch (localeCode) {
+      switch (_localeCode) {
         case "en":
-          _audioARSClips.Add(CID.INTERCEPT_CODE_Y0.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.INTERCEPT_CODE_Y0.AudioL10NKey}_S1") });
+          _audioARSClips.Add(CID.INTERCEPT_CODE_Y0.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.INTERCEPT_CODE_Y0.AudioL10NKey}_S1") });
           break;
         case "ja":
         case "ko":
           _audioARSClips.Add(CID.INTERCEPT_CODE_Y0.AudioL10NKey, new AudioClip[] {
-            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.INTERCEPT_CODE_Y0.AudioL10NKey}_S1"),
-            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.INTERCEPT_CODE_Y0.AudioL10NKey}_S2"),
+            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.INTERCEPT_CODE_Y0.AudioL10NKey}_S1"),
+            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.INTERCEPT_CODE_Y0.AudioL10NKey}_S2"),
           });
           break;
         default:
-          _audioARSClips.Add(CID.INTERCEPT_CODE_Y0.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.INTERCEPT_CODE_Y0.AudioL10NKey}_S1") });
+          _audioARSClips.Add(CID.INTERCEPT_CODE_Y0.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.INTERCEPT_CODE_Y0.AudioL10NKey}_S1") });
           break;
       }
 
-      _audioARSClips.Add(CID.CODE_LOST_REQ.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.CODE_LOST_REQ.AudioL10NKey}") });
+      _audioARSClips.Add(CID.CODE_LOST_REQ.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.CODE_LOST_REQ.AudioL10NKey}") });
       
-      switch (localeCode) {
+      switch (_localeCode) {
         case "en":
         case "ja":
         case "ko":
         default:
-          _audioARSClips.Add(CID.BOT_CHECK_REQ.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.BOT_CHECK_REQ.AudioL10NKey}_S1") });
+          _audioARSClips.Add(CID.BOT_CHECK_REQ.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.BOT_CHECK_REQ.AudioL10NKey}_S1") });
         break;
       }
 
-      _audioARSClips.Add(CID.BOT_CHECK_FAIL.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.BOT_CHECK_FAIL.AudioL10NKey}") });
-      switch (localeCode) {
+      _audioARSClips.Add(CID.BOT_CHECK_FAIL.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.BOT_CHECK_FAIL.AudioL10NKey}") });
+      switch (_localeCode) {
         case "en":
-          _audioARSClips.Add(CID.CODE_ISSUE_SUCC.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.CODE_ISSUE_SUCC.AudioL10NKey}_S1") });
+          _audioARSClips.Add(CID.CODE_ISSUE_SUCC.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.CODE_ISSUE_SUCC.AudioL10NKey}_S1") });
           break;
         case "ja":
         case "ko":
           _audioARSClips.Add(CID.CODE_ISSUE_SUCC.AudioL10NKey, new AudioClip[] {
-            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.CODE_ISSUE_SUCC.AudioL10NKey}_S1"),
-            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.CODE_ISSUE_SUCC.AudioL10NKey}_S2"),
+            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.CODE_ISSUE_SUCC.AudioL10NKey}_S1"),
+            Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.CODE_ISSUE_SUCC.AudioL10NKey}_S2"),
           });
           break;
         default:
-          _audioARSClips.Add(CID.CODE_ISSUE_SUCC.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.CODE_ISSUE_SUCC.AudioL10NKey}_S1") });
+          _audioARSClips.Add(CID.CODE_ISSUE_SUCC.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.CODE_ISSUE_SUCC.AudioL10NKey}_S1") });
           break;
       }
-      _audioARSClips.Add(CID.ERROR_404.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{localeCode}/{CID.ERROR_404.AudioL10NKey}") });
+      _audioARSClips.Add(CID.ERROR_404.AudioL10NKey, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{CID.ERROR_404.AudioL10NKey}") });
+
+      LoadARSNationalityResources();
+    }
+
+    void LoadARSWordResources()
+    {
+      for (int i = 0; i < 60; i++)
+      {
+        string key = $"{AUDIO_CLIP_NUM_PREFIX}{i}";
+        AudioClip clip = Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{key}");
+        if (clip != null && !_audioARSClips.ContainsKey(key))
+        {
+          _audioARSClips.Add(key, new AudioClip[] { clip });
+        }
+      }
+
+      _audioARSClips.Add(AUDIO_CLIP_UNOFFICIAL_WORKING_STAFF, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{AUDIO_CLIP_UNOFFICIAL_WORKING_STAFF}") });
+      _audioARSClips.Add(AUDIO_CLIP_OFFICIAL_WORKING_STAFF, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{AUDIO_CLIP_UNOFFICIAL_WORKING_STAFF}") });
+      _audioARSClips.Add(AUDIO_CLIP_REGIONAL_OFFICIAL_WORKING_STAFF, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{AUDIO_CLIP_UNOFFICIAL_WORKING_STAFF}") });
+      _audioARSClips.Add(AUDIO_CLIP_CENTRAL_OFFICIAL_WORKING_STAFF, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{AUDIO_CLIP_UNOFFICIAL_WORKING_STAFF}") });
+      _audioARSClips.Add(AUDIO_CLIP_CENTRAL_OFFICIAL_AUTH_HEAD_STAFF, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{AUDIO_CLIP_UNOFFICIAL_WORKING_STAFF}") });
+      _audioARSClips.Add(AUDIO_CLIP_CENTRAL_OFFICIAL_TOP_STAFF, new AudioClip[] { Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{AUDIO_CLIP_UNOFFICIAL_WORKING_STAFF}") });
+    }
+
+    void LoadARSNationalityResources()
+    {
+      foreach (var natn in CID.Nationalities)
+      {
+        string _localeCode = LocalizationUtils.GetLanguageCode(LocalizationSettings.SelectedLocale);
+        AudioClip clip = Resources.Load<AudioClip>($"{Defaults.PREFIX_AUDIO_CLIP_VOICE}/{_localeCode}/{natn}");
+        if (clip != null && !_audioARSClips.ContainsKey(natn))
+        {
+          _audioARSClips.Add(natn, new AudioClip[] { clip });
+        }
+      }
     }
 
     void LoadSingletons()
